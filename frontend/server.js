@@ -1,6 +1,24 @@
 import express from "express";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.set("trust proxy", true);
+app.use((req, res, next) => {
+  if (req.secure) {
+    return next();
+  }
+  const forwarded = req.headers["x-forwarded-proto"];
+  if (forwarded && forwarded !== "https") {
+    return res.redirect(301, `https://${req.headers.host}${req.originalUrl}`);
+  }
+  return next();
+});
+app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
   res.send(`
