@@ -3,3 +3,7 @@ nginx/letsencrypt/
 pgdata/
 node_modules/
 .DS_Store
+.env
+nginx/letsencrypt
+nginx/webroot
+nginx/htpasswd/.htpasswd
