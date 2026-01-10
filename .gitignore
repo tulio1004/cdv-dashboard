@@ -1,4 +1,4 @@
-﻿.env
+.env
 nginx/letsencrypt/
 pgdata/
 node_modules/
