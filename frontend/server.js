@@ -1,9 +1,9 @@
-﻿import express from "express";
+import express from "express";
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
-  res.send(
+  res.send(`
   <html><body style="font-family:Arial;padding:24px;">
     <h1>CDV Dashboard (Skeleton)</h1>
     <ul>
@@ -16,16 +16,16 @@ app.get("/", (req, res) => {
     </ul>
     <p>API health: <a href="/api/health">/api/health</a></p>
     <p>DB health: <a href="/api/health/db">/api/health/db</a></p>
-  </body></html>);
+  </body></html>`);
 });
 
 app.get(["/overview","/funnel","/operations","/community","/social","/email"], (req, res) => {
-  res.send(
+  res.send(`
   <html><body style="font-family:Arial;padding:24px;">
     <a href="/">← Back</a>
-    <h1></h1>
+    <h1>${req.path.replace("/","").toUpperCase()}</h1>
     <p>Empty page (Sprint 0).</p>
-  </body></html>);
+  </body></html>`);
 });
 
 app.listen(PORT, "0.0.0.0", () => console.log("Frontend on", PORT));
