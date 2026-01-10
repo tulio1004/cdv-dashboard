@@ -1,0 +1,8 @@
+﻿{
+  "name": "cdv-dashboard-api",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": { "start": "node src/index.js" },
+  "dependencies": { "fastify": "^4.28.1", "pg": "^8.12.0" }
+}

@@ -1,0 +1,5 @@
+﻿.env
+nginx/letsencrypt/
+pgdata/
+node_modules/
+.DS_Store
