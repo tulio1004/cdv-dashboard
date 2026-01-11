@@ -6,9 +6,11 @@ services:
       - "443:443"
     volumes:
       - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      - ./nginx/entrypoint:/docker-entrypoint.d:ro
       - ./nginx/htpasswd:/etc/nginx/htpasswd:ro
       - ./nginx/webroot:/var/www/certbot
-      - ./nginx/certs:/etc/nginx/certs:ro
+      - ./nginx/certs:/etc/nginx/certs
+      - ./nginx/letsencrypt:/etc/letsencrypt
     restart: unless-stopped
 
   certbot:
@@ -64,4 +66,3 @@ services:
 
 volumes:
   pgdata:
-
