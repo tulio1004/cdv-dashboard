@@ -122,6 +122,10 @@ app.get("/", (req, res) => {
           letter-spacing: 0.12em;
           text-transform: uppercase;
         }
+        .logout-button {
+          border: none;
+          cursor: pointer;
+        }
         .cards {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -209,7 +213,7 @@ app.get("/", (req, res) => {
               <h1>CDV Dashboard</h1>
               <p style="margin: 8px 0 0; color: var(--muted);">Sprint 0 • Estrutura base e identidade visual.</p>
             </div>
-            <div class="badge">Skeleton</div>
+            <button class="badge logout-button" type="button">Logout</button>
           </div>
           <section class="cards">
             <div class="card">
