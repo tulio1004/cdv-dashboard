@@ -7,3 +7,5 @@ node_modules/
 nginx/letsencrypt
 nginx/webroot
 nginx/htpasswd/.htpasswd
+nginx/certs/
+*.pem
