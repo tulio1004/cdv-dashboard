@@ -125,6 +125,7 @@ app.get("/", (req, res) => {
         .logout-button {
           border: none;
           cursor: pointer;
+          text-decoration: none;
         }
         .cards {
           display: grid;
@@ -213,7 +214,7 @@ app.get("/", (req, res) => {
               <h1>CDV Dashboard</h1>
               <p style="margin: 8px 0 0; color: var(--muted);">Sprint 0 • Estrutura base e identidade visual.</p>
             </div>
-            <button class="badge logout-button" type="button">Logout</button>
+            <a class="badge logout-button" href="/logout">Logout</a>
           </div>
           <section class="cards">
             <div class="card">
