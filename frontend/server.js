@@ -21,6 +21,7 @@ app.use((req, res, next) => {
 app.use(express.static(__dirname));
 
 app.get("/", (req, res) => {
+  res.set("Cache-Control", "no-store");
   res.send(`
   <html>
     <head>
@@ -33,16 +34,16 @@ app.get("/", (req, res) => {
           --panel: #151518;
           --text: #f5f5f7;
           --muted: #b8b8c1;
-          --accent: #ff4a1f;
+          --accent: #f32015;
           --accent-strong: #ff6a00;
-          --accent-soft: rgba(255, 90, 31, 0.18);
+          --accent-soft: rgba(243, 32, 21, 0.18);
           --border: #232327;
         }
         * { box-sizing: border-box; }
         body {
           margin: 0;
           font-family: "Inter", "Segoe UI", Arial, sans-serif;
-          background: radial-gradient(circle at top left, rgba(255, 90, 31, 0.12), transparent 40%),
+          background: radial-gradient(circle at top left, rgba(243, 32, 21, 0.12), transparent 40%),
             var(--bg);
           color: var(--text);
         }
@@ -62,12 +63,10 @@ app.get("/", (req, res) => {
           gap: 12px;
           margin-bottom: 32px;
         }
-        .logo-mark {
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          border: 4px solid var(--accent);
-          box-shadow: inset 0 0 0 4px rgba(255, 106, 0, 0.45);
+        .logo-image {
+          width: 48px;
+          height: 48px;
+          object-fit: contain;
         }
         .logo-text strong {
           display: block;
@@ -82,11 +81,14 @@ app.get("/", (req, res) => {
         }
         .nav {
           display: grid;
-          gap: 12px;
+          gap: 14px;
+          margin-top: 8px;
         }
         .nav a {
           color: var(--text);
           text-decoration: none;
+          font-size: 15px;
+          font-weight: 600;
           padding: 10px 12px;
           border-radius: 10px;
           display: flex;
@@ -94,10 +96,13 @@ app.get("/", (req, res) => {
           gap: 10px;
           background: transparent;
           border: 1px solid transparent;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
         .nav a:hover {
-          background: var(--accent-soft);
-          border-color: rgba(255, 90, 31, 0.3);
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          border-color: transparent;
+          box-shadow: 0 10px 24px rgba(243, 32, 21, 0.25);
+          transform: translateX(2px);
         }
         .content {
           padding: 32px 40px;
@@ -127,6 +132,7 @@ app.get("/", (req, res) => {
           border: 1px solid var(--border);
           padding: 18px;
           border-radius: 16px;
+          box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
         }
         .card h3 {
           margin: 0 0 8px;
@@ -143,14 +149,28 @@ app.get("/", (req, res) => {
           display: flex;
           gap: 16px;
           flex-wrap: wrap;
-        }
-        .health a {
-          color: var(--accent-strong);
-          text-decoration: none;
-          font-weight: 600;
+          align-items: center;
         }
         .health span {
           color: var(--muted);
+        }
+        .button {
+          display: inline-flex;
+          align-items: center;
+          gap: 8px;
+          padding: 10px 16px;
+          border-radius: 999px;
+          font-weight: 600;
+          color: #fff;
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          text-decoration: none;
+          border: none;
+          box-shadow: 0 8px 18px rgba(243, 32, 21, 0.24);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 24px rgba(243, 32, 21, 0.32);
         }
         @media (max-width: 860px) {
           .layout { grid-template-columns: 1fr; }
@@ -163,7 +183,12 @@ app.get("/", (req, res) => {
       <div class="layout">
         <aside class="sidebar">
           <div class="logo">
-            <div class="logo-mark"></div>
+            <img
+              class="logo-image"
+              src="/Logo.webp"
+              alt="Logo CDV"
+              onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/tulio1004/cdv-dashboard/main/frontend/Logo.webp';"
+            />
             <div class="logo-text">
               <strong>CDV</strong>
               <span>Dashboard</span>
@@ -206,9 +231,9 @@ app.get("/", (req, res) => {
           </section>
           <div class="health">
             <span>API health:</span>
-            <a href="/api/health">/api/health</a>
+            <a class="button" href="/api/health">/api/health</a>
             <span>DB health:</span>
-            <a href="/api/health/db">/api/health/db</a>
+            <a class="button" href="/api/health/db">/api/health/db</a>
           </div>
         </main>
       </div>
@@ -217,6 +242,7 @@ app.get("/", (req, res) => {
 });
 
 app.get(["/overview","/funnel","/operations","/community","/social","/email"], (req, res) => {
+  res.set("Cache-Control", "no-store");
   const section = req.path.replace("/", "");
   const title = section.charAt(0).toUpperCase() + section.slice(1);
   res.send(`
@@ -233,7 +259,21 @@ app.get(["/overview","/funnel","/operations","/community","/social","/email"], (
           color: #f5f5f7;
           padding: 32px;
         }
-        a { color: #ff6a00; text-decoration: none; font-weight: 600; }
+        a { text-decoration: none; font-weight: 600; }
+        .button {
+          display: inline-flex;
+          align-items: center;
+          padding: 10px 16px;
+          border-radius: 999px;
+          color: #fff;
+          background: linear-gradient(135deg, #f32015, #ff6a00);
+          box-shadow: 0 8px 18px rgba(243, 32, 21, 0.24);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .button:hover {
+          transform: translateY(-1px);
+          box-shadow: 0 12px 24px rgba(243, 32, 21, 0.32);
+        }
         .panel {
           margin-top: 24px;
           padding: 24px;
@@ -245,7 +285,7 @@ app.get(["/overview","/funnel","/operations","/community","/social","/email"], (
       </style>
     </head>
     <body>
-      <a href="/">← Voltar</a>
+      <a class="button" href="/">← Voltar</a>
       <h1>${title}</h1>
       <div class="panel">
         <p>Conteúdo base para a seção ${title}. Vamos evoluir na Sprint 1.</p>
