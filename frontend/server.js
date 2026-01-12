@@ -103,6 +103,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .icon {
           color: #fff;
+          font-size: 25px;
         }
         .nav a.active,
         .nav a:hover {
@@ -300,59 +301,150 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .status-warn { background: rgba(255, 191, 0, 0.2); color: var(--warning); }
         .status-down { background: rgba(255, 77, 79, 0.2); color: var(--danger); }
         .funnel-wrapper {
-          display: grid;
-          gap: 14px;
           margin-top: 16px;
+          display: grid;
+          grid-template-columns: minmax(140px, 200px) minmax(0, 1fr) minmax(140px, 200px);
+          gap: 16px;
+          align-items: center;
+          --funnel-height: 60vh;
+          max-width: 1300px;
+          margin-left: auto;
+          margin-right: auto;
         }
-        .funnel-row {
-          display: flex;
-          justify-content: center;
+        .funnel-svg {
+          width: 100%;
+          max-width: 750px;
+          height: var(--funnel-height);
+          overflow: visible;
+          justify-self: center;
+          z-index: 0;
         }
-        .funnel-block {
-          position: relative;
-          text-align: center;
-          padding: 18px 12px;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #ff6a00;
+        .funnel-segment {
+          transition: fill 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+        }
+        .funnel-segment:hover {
+          filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+        }
+        .funnel-svg text {
+          font-family: "Inter", sans-serif;
+          fill: var(--muted);
+        }
+        .funnel-label-text {
+          fill: #ff6a00 !important;
           font-weight: 700;
+          font-size: 34px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          margin: 0 auto;
         }
-        .funnel-block span {
-          display: block;
-          font-size: 12px;
-          color: var(--muted);
-          font-weight: 500;
+        .funnel-subtext {
+          fill: var(--muted);
+          font-size: 28px;
           letter-spacing: 0.04em;
+          text-transform: uppercase;
+          font-weight: 500;
         }
-        .funnel-side {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
+        .funnel-metrics {
+          position: relative;
+          height: calc(var(--funnel-height) * 0.86);
           color: var(--muted);
           font-weight: 600;
           font-size: 14px;
           white-space: nowrap;
+          align-self: center;
         }
-        .funnel-side.left {
-          left: -120px;
+        .funnel-metrics.left {
+          justify-items: end;
+          text-align: right;
         }
-        .funnel-side.right {
-          right: -140px;
+        .funnel-metrics.right {
+          justify-items: start;
+          text-align: left;
         }
-        .funnel-row[data-step="1"] .funnel-block { width: 100%; clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%); }
-        .funnel-row[data-step="2"] .funnel-block { width: 90%; clip-path: polygon(6% 0, 94% 0, 98% 100%, 2% 100%); }
-        .funnel-row[data-step="3"] .funnel-block { width: 82%; clip-path: polygon(8% 0, 92% 0, 96% 100%, 4% 100%); }
-        .funnel-row[data-step="4"] .funnel-block { width: 74%; clip-path: polygon(10% 0, 90% 0, 94% 100%, 6% 100%); }
-        .funnel-row[data-step="5"] .funnel-block { width: 66%; clip-path: polygon(12% 0, 88% 0, 92% 100%, 8% 100%); }
-        .funnel-row[data-step="6"] .funnel-block { width: 58%; clip-path: polygon(14% 0, 86% 0, 90% 100%, 10% 100%); }
+        .funnel-metric {
+          display: flex;
+          align-items: center;
+          min-height: 0;
+          position: absolute;
+          top: var(--metric-y);
+          transform: translateY(-50%);
+          width: 100%;
+        }
+        .funnel-metrics.left .funnel-metric {
+          justify-content: flex-end;
+        }
+        .funnel-metrics.right .funnel-metric {
+          justify-content: flex-start;
+        }
         .engagement-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 16px;
           margin-top: 20px;
+        }
+        .engagement-grid .card {
+          display: grid;
+          gap: 12px;
+        }
+        .engagement-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+        .engagement-title {
+          margin: 0;
+          font-size: 20px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .engagement-row {
+          display: grid;
+          gap: 6px;
+          padding: 10px 12px;
+          border-radius: 12px;
+          background: #111115;
+          border: 1px solid var(--border);
+        }
+        .engagement-section {
+          color: var(--accent-strong);
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          font-size: 12px;
+        }
+        .engagement-metric {
+          margin: 0;
+          color: #fff;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 20px;
+        }
+        .engagement-metric span {
+          color: var(--accent-strong);
+          font-weight: 700;
+        }
+        .engagement-full {
+          padding: 6px 14px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          color: #fff;
+          font-size: 11px;
+          font-weight: 700;
+          text-decoration: none;
+          letter-spacing: 0.08em;
+          white-space: nowrap;
+        }
+        @media (max-width: 1100px) {
+          .engagement-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 720px) {
+          .engagement-grid {
+            grid-template-columns: 1fr;
+          }
         }
         .engagement-card details {
           margin-top: 10px;
@@ -660,53 +752,156 @@ const funnelContent = `
   <section class="card">
     <h3><span class="icon">🧭</span> Funil principal</h3>
     <div class="funnel-wrapper">
-      <div class="funnel-row" data-step="1">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-vsl-views">--</span> Views</div>
-          VSL <span>100% BASE</span>
-          <div class="funnel-side right"><span id="funnel-vsl-conv">--</span>% Conversão</div>
-        </div>
+      <div class="funnel-metrics left">
+        <div class="funnel-metric" style="--metric-y: 8.34%;"><span id="funnel-vsl-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 24.38%;"><span id="funnel-signup-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 40.41%;"><span id="funnel-confirmation-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 56.45%;"><span id="funnel-aula1-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 72.49%;"><span id="funnel-aula2-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 88.52%;"><span id="funnel-aula3-views">--</span> Views</div>
       </div>
-      <div class="funnel-row" data-step="2">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-signup-views">--</span> Views</div>
-          Cadastro <span>VS VSL</span>
-          <div class="funnel-side right"><span id="funnel-signup-conv">--</span>% Conversão</div>
-        </div>
-      </div>
-      <div class="funnel-row" data-step="3">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-confirmation-views">--</span> Views</div>
-          Confirmação <span>VS CADASTRO</span>
-          <div class="funnel-side right"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
-        </div>
-      </div>
-      <div class="funnel-row" data-step="4">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula1-views">--</span> Views</div>
-          Aula 1 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula1-conv">--</span>% Conversão</div>
-        </div>
-      </div>
-      <div class="funnel-row" data-step="5">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula2-views">--</span> Views</div>
-          Aula 2 <span>VS AULA 1</span>
-          <div class="funnel-side right"><span id="funnel-aula2-conv">--</span>% Conversão</div>
-        </div>
-      </div>
-      <div class="funnel-row" data-step="6">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula3-views">--</span> Views</div>
-          Aula 3 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula3-conv">--</span>% Conversão</div>
-        </div>
+      <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
+        <defs>
+          <linearGradient id="funnel-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2d2d35" />
+            <stop offset="50%" stop-color="#232327" />
+            <stop offset="100%" stop-color="#1b1b20" />
+          </linearGradient>
+          <linearGradient id="funnel-gradient-hover" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#33333c" />
+            <stop offset="50%" stop-color="#2b2b31" />
+            <stop offset="100%" stop-color="#1f1f24" />
+          </linearGradient>
+        </defs>
+        <path id="AULA_3" class="funnel-segment" fill="url(#funnel-gradient)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="AULA_2" class="funnel-segment" fill="url(#funnel-gradient)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"/>
+        <path id="AULA_1" class="funnel-segment" fill="url(#funnel-gradient)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"/>
+        <path id="CONFIRMACAO" class="funnel-segment" fill="url(#funnel-gradient)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="CADASTRO" class="funnel-segment" fill="url(#funnel-gradient)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="VSL" class="funnel-segment" fill="url(#funnel-gradient)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
+        <text class="funnel-label-text" x="866.65" y="130" text-anchor="middle" dominant-baseline="middle">VSL</text>
+        <text class="funnel-subtext" x="866.65" y="200" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
+        <text class="funnel-label-text" x="866.65" y="380" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+        <text class="funnel-subtext" x="866.65" y="450" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
+        <text class="funnel-label-text" x="866.65" y="630" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
+        <text class="funnel-subtext" x="866.65" y="700" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
+        <text class="funnel-label-text" x="866.65" y="880" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
+        <text class="funnel-subtext" x="866.65" y="950" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+        <text class="funnel-label-text" x="866.65" y="1130" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
+        <text class="funnel-subtext" x="866.65" y="1200" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
+        <text class="funnel-label-text" x="866.65" y="1380" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
+        <text class="funnel-subtext" x="866.65" y="1450" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+      </svg>
+      <div class="funnel-metrics right">
+        <div class="funnel-metric" style="--metric-y: 8.34%;"><span id="funnel-vsl-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 24.38%;"><span id="funnel-signup-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 40.41%;"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 56.45%;"><span id="funnel-aula1-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 72.49%;"><span id="funnel-aula2-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 88.52%;"><span id="funnel-aula3-conv">--</span>% Conversão</div>
       </div>
     </div>
   </section>
   <section class="card" style="margin-top: 18px;">
-    <h3><span class="icon">⏱️</span> Tempo médio por página</h3>
-    <div class="engagement-grid" id="engagement-grid"></div>
+    <h3><span class="icon">📄</span> Páginas</h3>
+    <div class="engagement-grid">
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">VSL</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Cadastro</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Confirmação</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 1</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 2</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 3</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+    </div>
   </section>
 `;
 
@@ -754,30 +949,6 @@ const funnelScript = `
           setText("funnel-aula2-conv", formatPercent(percent(aula2Views, aula1Views)));
           setText("funnel-aula3-conv", formatPercent(percent(aula3Views, confirmationViews)));
 
-          const engagementGrid = document.getElementById("engagement-grid");
-          if (engagementGrid) {
-            engagementGrid.innerHTML = rows
-              .map((row) => {
-                return (
-                  '<div class="card engagement-card">' +
-                  '<h3><span class="icon">⏱️</span> ' +
-                  row.label +
-                  "</h3>" +
-                  '<p><strong>Tempo médio:</strong> ' +
-                  formatNumber(row.avg_engagement) +
-                  "s</p>" +
-                  "<details>" +
-                  "<summary>Detalhes GA</summary>" +
-                  "<p>Localização: --</p>" +
-                  "<p>Usuários online: --</p>" +
-                  "<p>Dispositivos: --</p>" +
-                  "<p>Origem de tráfego: --</p>" +
-                  "</details>" +
-                  "</div>"
-                );
-              })
-              .join("");
-          }
         });
     };
 
