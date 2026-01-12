@@ -410,7 +410,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           display: flex;
           align-items: center;
           gap: 8px;
-          font-size: 14px;
+          font-size: 16px;
         }
         .engagement-metric span {
           color: var(--accent-strong);
@@ -794,7 +794,7 @@ const funnelContent = `
     </div>
   </section>
   <section class="card" style="margin-top: 18px;">
-    <h3><span class="icon">⏱️</span> Tempo médio por página</h3>
+    <h3><span class="icon">📄</span> Páginas</h3>
     <div class="engagement-grid">
       <div class="card engagement-card">
         <div class="engagement-header">
