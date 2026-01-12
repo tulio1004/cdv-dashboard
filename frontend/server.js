@@ -300,54 +300,76 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .status-warn { background: rgba(255, 191, 0, 0.2); color: var(--warning); }
         .status-down { background: rgba(255, 77, 79, 0.2); color: var(--danger); }
         .funnel-wrapper {
-          display: grid;
-          gap: 14px;
           margin-top: 16px;
+          display: grid;
+          gap: 12px;
+        }
+        .funnel-grid {
+          display: grid;
+          grid-template-columns: minmax(140px, 200px) minmax(0, 1fr) minmax(140px, 200px);
+          gap: 12px;
+          align-items: center;
         }
         .funnel-row {
+          display: contents;
+        }
+        .funnel-center {
           display: flex;
           justify-content: center;
         }
-        .funnel-block {
-          position: relative;
-          text-align: center;
-          padding: 18px 12px;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #ff6a00;
+        .funnel-svg {
+          width: 80%;
+          max-width: 750px;
+          height: 90px;
+          overflow: visible;
+          z-index: 0;
+        }
+        .funnel-segment {
+          transition: fill 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
+        }
+        .funnel-segment:hover {
+          filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
+        }
+        .funnel-svg text {
+          font-family: "Inter", sans-serif;
+          fill: var(--muted);
+        }
+        .funnel-label-text {
+          fill: #ff6a00 !important;
           font-weight: 700;
+          font-size: 34px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          margin: 0 auto;
         }
-        .funnel-block span {
-          display: block;
-          font-size: 12px;
-          color: var(--muted);
-          font-weight: 500;
+        .funnel-subtext {
+          fill: var(--muted);
+          font-size: 28px;
           letter-spacing: 0.04em;
+          text-transform: uppercase;
+          font-weight: 500;
         }
-        .funnel-side {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
+        .funnel-metrics {
+          display: grid;
+          gap: 12px;
           color: var(--muted);
           font-weight: 600;
           font-size: 14px;
+          align-items: center;
           white-space: nowrap;
         }
-        .funnel-side.left {
-          left: -120px;
+        .funnel-metrics.left {
+          justify-items: end;
+          text-align: right;
         }
-        .funnel-side.right {
-          right: -140px;
+        .funnel-metrics.right {
+          justify-items: start;
+          text-align: left;
         }
-        .funnel-row[data-step="1"] .funnel-block { width: 100%; clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%); }
-        .funnel-row[data-step="2"] .funnel-block { width: 90%; clip-path: polygon(6% 0, 94% 0, 98% 100%, 2% 100%); }
-        .funnel-row[data-step="3"] .funnel-block { width: 82%; clip-path: polygon(8% 0, 92% 0, 96% 100%, 4% 100%); }
-        .funnel-row[data-step="4"] .funnel-block { width: 74%; clip-path: polygon(10% 0, 90% 0, 94% 100%, 6% 100%); }
-        .funnel-row[data-step="5"] .funnel-block { width: 66%; clip-path: polygon(12% 0, 88% 0, 92% 100%, 8% 100%); }
-        .funnel-row[data-step="6"] .funnel-block { width: 58%; clip-path: polygon(14% 0, 86% 0, 90% 100%, 10% 100%); }
+        .funnel-metric {
+          display: flex;
+          align-items: center;
+          min-height: 90px;
+        }
         .engagement-grid {
           display: grid;
           grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -660,46 +682,168 @@ const funnelContent = `
   <section class="card">
     <h3><span class="icon">🧭</span> Funil principal</h3>
     <div class="funnel-wrapper">
-      <div class="funnel-row" data-step="1">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-vsl-views">--</span> Views</div>
-          VSL <span>100% BASE</span>
-          <div class="funnel-side right"><span id="funnel-vsl-conv">--</span>% Conversão</div>
+      <div class="funnel-grid">
+        <div class="funnel-row">
+          <div class="funnel-metrics left">
+            <div class="funnel-metric"><span id="funnel-vsl-views">--</span> Views</div>
+          </div>
+          <div class="funnel-center">
+            <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 29 1733.3 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="VSL">
+              <defs>
+                <linearGradient id="funnel-gradient-vsl" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2d2d35" />
+                  <stop offset="50%" stop-color="#232327" />
+                  <stop offset="100%" stop-color="#1b1b20" />
+                </linearGradient>
+                <linearGradient id="funnel-gradient-hover-vsl" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#33333c" />
+                  <stop offset="50%" stop-color="#2b2b31" />
+                  <stop offset="100%" stop-color="#1f1f24" />
+                </linearGradient>
+              </defs>
+              <path class="funnel-segment" fill="url(#funnel-gradient-vsl)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
+              <text class="funnel-label-text" x="866.65" y="120" text-anchor="middle" dominant-baseline="middle">VSL</text>
+              <text class="funnel-subtext" x="866.65" y="155" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
+            </svg>
+          </div>
+          <div class="funnel-metrics right">
+            <div class="funnel-metric"><span id="funnel-vsl-conv">--</span>% Conversão</div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="2">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-signup-views">--</span> Views</div>
-          Cadastro <span>VS VSL</span>
-          <div class="funnel-side right"><span id="funnel-signup-conv">--</span>% Conversão</div>
+        <div class="funnel-row">
+          <div class="funnel-metrics left">
+            <div class="funnel-metric"><span id="funnel-signup-views">--</span> Views</div>
+          </div>
+          <div class="funnel-center">
+            <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 293 1733.3 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Cadastro">
+              <defs>
+                <linearGradient id="funnel-gradient-signup" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2d2d35" />
+                  <stop offset="50%" stop-color="#232327" />
+                  <stop offset="100%" stop-color="#1b1b20" />
+                </linearGradient>
+                <linearGradient id="funnel-gradient-hover-signup" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#33333c" />
+                  <stop offset="50%" stop-color="#2b2b31" />
+                  <stop offset="100%" stop-color="#1f1f24" />
+                </linearGradient>
+              </defs>
+              <path class="funnel-segment" fill="url(#funnel-gradient-signup)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+              <text class="funnel-label-text" x="866.65" y="120" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+              <text class="funnel-subtext" x="866.65" y="155" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
+            </svg>
+          </div>
+          <div class="funnel-metrics right">
+            <div class="funnel-metric"><span id="funnel-signup-conv">--</span>% Conversão</div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="3">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-confirmation-views">--</span> Views</div>
-          Confirmação <span>VS CADASTRO</span>
-          <div class="funnel-side right"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
+        <div class="funnel-row">
+          <div class="funnel-metrics left">
+            <div class="funnel-metric"><span id="funnel-confirmation-views">--</span> Views</div>
+          </div>
+          <div class="funnel-center">
+            <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 529 1733.3 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Confirmação">
+              <defs>
+                <linearGradient id="funnel-gradient-confirmation" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2d2d35" />
+                  <stop offset="50%" stop-color="#232327" />
+                  <stop offset="100%" stop-color="#1b1b20" />
+                </linearGradient>
+                <linearGradient id="funnel-gradient-hover-confirmation" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#33333c" />
+                  <stop offset="50%" stop-color="#2b2b31" />
+                  <stop offset="100%" stop-color="#1f1f24" />
+                </linearGradient>
+              </defs>
+              <path class="funnel-segment" fill="url(#funnel-gradient-confirmation)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+              <text class="funnel-label-text" x="866.65" y="120" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
+              <text class="funnel-subtext" x="866.65" y="155" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
+            </svg>
+          </div>
+          <div class="funnel-metrics right">
+            <div class="funnel-metric"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="4">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula1-views">--</span> Views</div>
-          Aula 1 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula1-conv">--</span>% Conversão</div>
+        <div class="funnel-row">
+          <div class="funnel-metrics left">
+            <div class="funnel-metric"><span id="funnel-aula1-views">--</span> Views</div>
+          </div>
+          <div class="funnel-center">
+            <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 779 1733.3 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Aula 1">
+              <defs>
+                <linearGradient id="funnel-gradient-aula1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2d2d35" />
+                  <stop offset="50%" stop-color="#232327" />
+                  <stop offset="100%" stop-color="#1b1b20" />
+                </linearGradient>
+                <linearGradient id="funnel-gradient-hover-aula1" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#33333c" />
+                  <stop offset="50%" stop-color="#2b2b31" />
+                  <stop offset="100%" stop-color="#1f1f24" />
+                </linearGradient>
+              </defs>
+              <path class="funnel-segment" fill="url(#funnel-gradient-aula1)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"/>
+              <text class="funnel-label-text" x="866.65" y="120" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
+              <text class="funnel-subtext" x="866.65" y="155" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+            </svg>
+          </div>
+          <div class="funnel-metrics right">
+            <div class="funnel-metric"><span id="funnel-aula1-conv">--</span>% Conversão</div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="5">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula2-views">--</span> Views</div>
-          Aula 2 <span>VS AULA 1</span>
-          <div class="funnel-side right"><span id="funnel-aula2-conv">--</span>% Conversão</div>
+        <div class="funnel-row">
+          <div class="funnel-metrics left">
+            <div class="funnel-metric"><span id="funnel-aula2-views">--</span> Views</div>
+          </div>
+          <div class="funnel-center">
+            <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 1029 1733.3 240" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Aula 2">
+              <defs>
+                <linearGradient id="funnel-gradient-aula2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2d2d35" />
+                  <stop offset="50%" stop-color="#232327" />
+                  <stop offset="100%" stop-color="#1b1b20" />
+                </linearGradient>
+                <linearGradient id="funnel-gradient-hover-aula2" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#33333c" />
+                  <stop offset="50%" stop-color="#2b2b31" />
+                  <stop offset="100%" stop-color="#1f1f24" />
+                </linearGradient>
+              </defs>
+              <path class="funnel-segment" fill="url(#funnel-gradient-aula2)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"/>
+              <text class="funnel-label-text" x="866.65" y="120" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
+              <text class="funnel-subtext" x="866.65" y="155" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
+            </svg>
+          </div>
+          <div class="funnel-metrics right">
+            <div class="funnel-metric"><span id="funnel-aula2-conv">--</span>% Conversão</div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="6">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula3-views">--</span> Views</div>
-          Aula 3 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula3-conv">--</span>% Conversão</div>
+        <div class="funnel-row">
+          <div class="funnel-metrics left">
+            <div class="funnel-metric"><span id="funnel-aula3-views">--</span> Views</div>
+          </div>
+          <div class="funnel-center">
+            <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 1279 1733.3 260" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Aula 3">
+              <defs>
+                <linearGradient id="funnel-gradient-aula3" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#2d2d35" />
+                  <stop offset="50%" stop-color="#232327" />
+                  <stop offset="100%" stop-color="#1b1b20" />
+                </linearGradient>
+                <linearGradient id="funnel-gradient-hover-aula3" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#33333c" />
+                  <stop offset="50%" stop-color="#2b2b31" />
+                  <stop offset="100%" stop-color="#1f1f24" />
+                </linearGradient>
+              </defs>
+              <path class="funnel-segment" fill="url(#funnel-gradient-aula3)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+              <text class="funnel-label-text" x="866.65" y="130" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
+              <text class="funnel-subtext" x="866.65" y="165" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+            </svg>
+          </div>
+          <div class="funnel-metrics right">
+            <div class="funnel-metric"><span id="funnel-aula3-conv">--</span>% Conversão</div>
+          </div>
         </div>
       </div>
     </div>
