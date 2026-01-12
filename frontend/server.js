@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>CDV Dashboard</title>
+      <title>Painel CDV</title>
       <style>
         :root {
           --bg: #0f0f10;
@@ -194,27 +194,28 @@ app.get("/", (req, res) => {
               alt="Logo CDV"
               onerror="this.onerror=null;this.src='https://raw.githubusercontent.com/tulio1004/cdv-dashboard/main/frontend/Logo.webp';"
             />
-            <div class="logo-text">
-              <strong>CDV</strong>
-              <span>Dashboard</span>
-            </div>
+          <div class="logo-text">
+            <strong>CDV</strong>
+            <span>Painel</span>
+          </div>
           </div>
           <nav class="nav">
-            <a href="/overview">Overview</a>
-            <a href="/funnel">Funnel</a>
-            <a href="/operations">Operations</a>
-            <a href="/community">Community</a>
+            <a href="/overview">Visão geral</a>
+            <a href="/funnel">Funil</a>
+            <a href="/receita">Receita</a>
+            <a href="/operations">Operações</a>
+            <a href="/community">Comunidade</a>
             <a href="/social">Social</a>
-            <a href="/email">Email</a>
+            <a href="/email">E-mail</a>
           </nav>
         </aside>
         <main class="content">
           <div class="topbar">
             <div>
-              <h1>CDV Dashboard</h1>
+              <h1>Painel CDV</h1>
               <p style="margin: 8px 0 0; color: var(--muted);">Sprint 0 • Estrutura base e identidade visual.</p>
             </div>
-            <a class="badge logout-button" href="/logout">Logout</a>
+            <a class="badge logout-button" href="/logout">Sair</a>
           </div>
           <section class="cards">
             <div class="card">
@@ -222,7 +223,11 @@ app.get("/", (req, res) => {
               <p>Bloco reservado para KPIs principais e metas semanais.</p>
             </div>
             <div class="card">
-              <h3>Pipeline</h3>
+              <h3>Receita</h3>
+              <p>Placeholder para receita e quantidade de vendas do período.</p>
+            </div>
+            <div class="card">
+              <h3>Funil</h3>
               <p>Resumo do funil com alertas rápidos sobre gargalos.</p>
             </div>
             <div class="card">
@@ -235,9 +240,9 @@ app.get("/", (req, res) => {
             </div>
           </section>
           <div class="health">
-            <span>API health:</span>
+            <span>Saúde da API:</span>
             <a class="button" href="/api/health">/api/health</a>
-            <span>DB health:</span>
+            <span>Saúde do banco:</span>
             <a class="button" href="/api/health/db">/api/health/db</a>
           </div>
         </main>
@@ -246,16 +251,25 @@ app.get("/", (req, res) => {
   </html>`);
 });
 
-app.get(["/overview","/funnel","/operations","/community","/social","/email"], (req, res) => {
+app.get(["/overview","/funnel","/receita","/operations","/community","/social","/email"], (req, res) => {
   res.set("Cache-Control", "no-store");
   const section = req.path.replace("/", "");
-  const title = section.charAt(0).toUpperCase() + section.slice(1);
+  const titles = {
+    overview: "Visão geral",
+    funnel: "Funil",
+    receita: "Receita",
+    operations: "Operações",
+    community: "Comunidade",
+    social: "Social",
+    email: "E-mail",
+  };
+  const title = titles[section] || section.charAt(0).toUpperCase() + section.slice(1);
   res.send(`
   <html>
     <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>${title} • CDV Dashboard</title>
+      <title>${title} • Painel CDV</title>
       <style>
         body {
           margin: 0;
