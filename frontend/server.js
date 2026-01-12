@@ -312,6 +312,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           width: 100%;
           display: flex;
           justify-content: center;
+          max-width: 750px;
         }
         .funnel-svg {
           width: 80%;
@@ -333,7 +334,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           fill: var(--muted);
         }
         .funnel-label-text {
-          fill: #ff6a00;
+          fill: #ff6a00 !important;
           font-weight: 700;
           font-size: 34px;
           letter-spacing: 0.08em;
@@ -710,23 +711,23 @@ const funnelContent = `
           <path id="CADASTRO" class="funnel-segment" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
           <path id="VSL" class="funnel-segment" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
 
-          <text class="funnel-label-text" x="866.65" y="182" text-anchor="middle" dominant-baseline="middle">VSL</text>
-          <text class="funnel-subtext" x="866.65" y="218" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
+          <text class="funnel-label-text" x="866.65" y="176" text-anchor="middle" dominant-baseline="middle">VSL</text>
+          <text class="funnel-subtext" x="866.65" y="235" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
 
-          <text class="funnel-label-text" x="866.65" y="432" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
-          <text class="funnel-subtext" x="866.65" y="468" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
+          <text class="funnel-label-text" x="866.65" y="426" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+          <text class="funnel-subtext" x="866.65" y="485" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
 
-          <text class="funnel-label-text" x="866.65" y="682" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
-          <text class="funnel-subtext" x="866.65" y="718" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
+          <text class="funnel-label-text" x="866.65" y="676" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
+          <text class="funnel-subtext" x="866.65" y="735" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
 
-          <text class="funnel-label-text" x="866.65" y="932" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
-          <text class="funnel-subtext" x="866.65" y="968" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+          <text class="funnel-label-text" x="866.65" y="926" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
+          <text class="funnel-subtext" x="866.65" y="985" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
 
-          <text class="funnel-label-text" x="866.65" y="1182" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
-          <text class="funnel-subtext" x="866.65" y="1218" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
+          <text class="funnel-label-text" x="866.65" y="1176" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
+          <text class="funnel-subtext" x="866.65" y="1235" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
 
-          <text class="funnel-label-text" x="866.65" y="1432" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
-          <text class="funnel-subtext" x="866.65" y="1468" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+          <text class="funnel-label-text" x="866.65" y="1426" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
+          <text class="funnel-subtext" x="866.65" y="1485" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
         </svg>
       </div>
       <div class="funnel-metrics right">
