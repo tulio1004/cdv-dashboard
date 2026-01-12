@@ -84,7 +84,8 @@ app.get("/api/overview", async (request) => {
          tp.page_path,
          tp.sort_order,
          COALESCE(SUM(CASE WHEN mt.metric = 'views' THEN mt.value END), 0) AS views,
-         COALESCE(AVG(CASE WHEN mt.metric = 'engagement' THEN mt.value END), 0) AS avg_engagement
+         COALESCE(AVG(CASE WHEN mt.metric = 'engagement' THEN mt.value END), 0) AS avg_engagement,
+         COALESCE(AVG(CASE WHEN mt.metric = 'bounce_rate' THEN mt.value END), 0) AS bounce_rate
        FROM config_tracked_pages tp
        LEFT JOIN metrics_timeseries mt
          ON mt.dimension_type = 'page'
@@ -109,6 +110,7 @@ app.get("/api/overview", async (request) => {
       ...row,
       views: Number(row.views),
       avg_engagement: Number(row.avg_engagement),
+      bounce_rate: Number(row.bounce_rate),
     }));
 
     const findViews = (slug) =>

@@ -814,13 +814,13 @@ const funnelContent = `
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Período</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-vsl-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-vsl-period-bounce">--%</span></p>
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Sempre</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-vsl-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-vsl-always-bounce">--%</span></p>
         </div>
       </div>
       <div class="card engagement-card">
@@ -830,13 +830,13 @@ const funnelContent = `
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Período</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-signup-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-signup-period-bounce">--%</span></p>
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Sempre</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-signup-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-signup-always-bounce">--%</span></p>
         </div>
       </div>
       <div class="card engagement-card">
@@ -846,13 +846,13 @@ const funnelContent = `
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Período</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-confirmation-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-confirmation-period-bounce">--%</span></p>
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Sempre</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-confirmation-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-confirmation-always-bounce">--%</span></p>
         </div>
       </div>
       <div class="card engagement-card">
@@ -862,13 +862,13 @@ const funnelContent = `
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Período</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula1-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula1-period-bounce">--%</span></p>
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Sempre</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula1-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula1-always-bounce">--%</span></p>
         </div>
       </div>
       <div class="card engagement-card">
@@ -878,13 +878,13 @@ const funnelContent = `
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Período</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula2-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula2-period-bounce">--%</span></p>
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Sempre</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula2-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula2-always-bounce">--%</span></p>
         </div>
       </div>
       <div class="card engagement-card">
@@ -894,13 +894,13 @@ const funnelContent = `
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Período</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula3-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula3-period-bounce">--%</span></p>
         </div>
         <div class="engagement-row">
           <div class="engagement-section">Sempre</div>
-          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
-          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula3-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula3-always-bounce">--%</span></p>
         </div>
       </div>
     </div>
@@ -917,41 +917,97 @@ const funnelScript = `
       const number = Number(value);
       return Number.isFinite(number) ? number.toFixed(1) : "--";
     };
+    const formatDuration = (value) => {
+      const seconds = Number(value);
+      if (!Number.isFinite(seconds) || seconds <= 0) return "-- min";
+      const minutes = seconds / 60;
+      return minutes.toFixed(1) + " min";
+    };
     const renderFunnel = (range) => {
-      fetch("/api/overview?range=" + range)
-        .then((response) => response.json())
-        .then((data) => {
-          if (!data?.ok) return;
-          const rows = data.funnel?.pages || [];
-          const bySlug = Object.fromEntries(rows.map((row) => [row.slug, row]));
+      const allTimeRange = "365d";
+      const fetchOverview = (targetRange) =>
+        fetch("/api/overview?range=" + targetRange).then((response) => response.json());
+
+      Promise.all([fetchOverview(range), fetchOverview(allTimeRange)]).then(
+        ([periodData, allTimeData]) => {
+          if (!periodData?.ok) return;
+          const periodRows = periodData.funnel?.pages || [];
+          const allTimeRows = allTimeData?.funnel?.pages || [];
+          const periodBySlug = Object.fromEntries(periodRows.map((row) => [row.slug, row]));
+          const allTimeBySlug = Object.fromEntries(allTimeRows.map((row) => [row.slug, row]));
           const setText = (id, value) => {
             const el = document.getElementById(id);
             if (el) el.textContent = value;
           };
 
           const percent = (num, den) => (den ? (num / den) * 100 : 0);
-          const vslViews = Number(bySlug.vsl?.views) || 0;
-          const signupViews = Number(bySlug.signup?.views) || 0;
-          const confirmationViews = Number(bySlug.confirmation?.views) || 0;
-          const aula1Views = Number(bySlug.aula1?.views) || 0;
-          const aula2Views = Number(bySlug.aula2?.views) || 0;
-          const aula3Views = Number(bySlug.aula3?.views) || 0;
+          const vslViews = Number(periodBySlug.vsl?.views) || 0;
+          const signupViews = Number(periodBySlug.signup?.views) || 0;
+          const confirmationViews = Number(periodBySlug.confirmation?.views) || 0;
+          const aula1Views = Number(periodBySlug.aula1?.views) || 0;
+          const aula2Views = Number(periodBySlug.aula2?.views) || 0;
+          const aula3Views = Number(periodBySlug.aula3?.views) || 0;
 
-          setText("funnel-vsl-views", formatNumber(vslViews));
-          setText("funnel-signup-views", formatNumber(signupViews));
-          setText("funnel-confirmation-views", formatNumber(confirmationViews));
-          setText("funnel-aula1-views", formatNumber(aula1Views));
-          setText("funnel-aula2-views", formatNumber(aula2Views));
-          setText("funnel-aula3-views", formatNumber(aula3Views));
+          setText("funnel-vsl-views", formatNumber(vslViews) + " Views");
+          setText("funnel-signup-views", formatNumber(signupViews) + " Views");
+          setText("funnel-confirmation-views", formatNumber(confirmationViews) + " Views");
+          setText("funnel-aula1-views", formatNumber(aula1Views) + " Views");
+          setText("funnel-aula2-views", formatNumber(aula2Views) + " Views");
+          setText("funnel-aula3-views", formatNumber(aula3Views) + " Views");
 
-          setText("funnel-vsl-conv", formatPercent(100));
-          setText("funnel-signup-conv", formatPercent(percent(signupViews, vslViews)));
-          setText("funnel-confirmation-conv", formatPercent(percent(confirmationViews, signupViews)));
-          setText("funnel-aula1-conv", formatPercent(percent(aula1Views, confirmationViews)));
-          setText("funnel-aula2-conv", formatPercent(percent(aula2Views, aula1Views)));
-          setText("funnel-aula3-conv", formatPercent(percent(aula3Views, confirmationViews)));
+          setText("funnel-vsl-conv", formatPercent(100) + "% Conversão");
+          setText(
+            "funnel-signup-conv",
+            formatPercent(percent(signupViews, vslViews)) + "% Conversão"
+          );
+          setText(
+            "funnel-confirmation-conv",
+            formatPercent(percent(confirmationViews, signupViews)) + "% Conversão"
+          );
+          setText(
+            "funnel-aula1-conv",
+            formatPercent(percent(aula1Views, confirmationViews)) + "% Conversão"
+          );
+          setText(
+            "funnel-aula2-conv",
+            formatPercent(percent(aula2Views, aula1Views)) + "% Conversão"
+          );
+          setText(
+            "funnel-aula3-conv",
+            formatPercent(percent(aula3Views, confirmationViews)) + "% Conversão"
+          );
 
-        });
+          const pageMappings = [
+            { slug: "vsl", prefix: "vsl" },
+            { slug: "signup", prefix: "signup" },
+            { slug: "confirmation", prefix: "confirmation" },
+            { slug: "aula1", prefix: "aula1" },
+            { slug: "aula2", prefix: "aula2" },
+            { slug: "aula3", prefix: "aula3" },
+          ];
+
+          pageMappings.forEach(({ slug, prefix }) => {
+            const periodRow = periodBySlug[slug] || {};
+            const allTimeRow = allTimeBySlug[slug] || {};
+            setText(
+              "page-" + prefix + "-period-avg",
+              formatDuration(periodRow.avg_engagement)
+            );
+            setText(
+              "page-" + prefix + "-period-bounce",
+              formatPercent(periodRow.bounce_rate) + "%"
+            );
+            setText(
+              "page-" + prefix + "-always-avg",
+              formatDuration(allTimeRow.avg_engagement)
+            );
+            setText(
+              "page-" + prefix + "-always-bounce",
+              formatPercent(allTimeRow.bounce_rate) + "%"
+            );
+          });
+        }
+      );
     };
 
     window.addEventListener("range-change", (event) => {
