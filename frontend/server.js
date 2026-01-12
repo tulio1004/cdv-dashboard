@@ -101,6 +101,9 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           border: 1px solid transparent;
           transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
+        .icon {
+          color: #fff;
+        }
         .nav a.active,
         .nav a:hover {
           background: linear-gradient(135deg, var(--accent), var(--accent-strong));
@@ -333,13 +336,13 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
             </div>
           </div>
           <nav class="nav">
-            <a href="/" class="${section === "overview" ? "active" : ""}">🏠 Visão geral</a>
-            <a href="/funnel" class="${section === "funnel" ? "active" : ""}">📉 Funil</a>
-            <a href="/receita" class="${section === "receita" ? "active" : ""}">💰 Receita</a>
-            <a href="/operations" class="${section === "operations" ? "active" : ""}">🛠️ Operações</a>
-            <a href="/community" class="${section === "community" ? "active" : ""}">👥 Comunidade</a>
-            <a href="/social" class="${section === "social" ? "active" : ""}">📣 Social</a>
-            <a href="/email" class="${section === "email" ? "active" : ""}">✉️ E-mail</a>
+            <a href="/" class="${section === "overview" ? "active" : ""}"><span class="icon">🏠</span> Visão geral</a>
+            <a href="/funnel" class="${section === "funnel" ? "active" : ""}"><span class="icon">📉</span> Funil</a>
+            <a href="/receita" class="${section === "receita" ? "active" : ""}"><span class="icon">💰</span> Receita</a>
+            <a href="/operations" class="${section === "operations" ? "active" : ""}"><span class="icon">🛠️</span> Operações</a>
+            <a href="/community" class="${section === "community" ? "active" : ""}"><span class="icon">👥</span> Comunidade</a>
+            <a href="/social" class="${section === "social" ? "active" : ""}"><span class="icon">📣</span> Social</a>
+            <a href="/email" class="${section === "email" ? "active" : ""}"><span class="icon">✉️</span> E-mail</a>
           </nav>
           <div class="filter-panel">
             <h4>Período</h4>
@@ -359,7 +362,6 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           <div class="topbar">
             <div>
               <h1>${title}</h1>
-              <p style="margin: 8px 0 0; color: var(--muted);">Sprint 1 • Dados mockados para validação visual.</p>
             </div>
             <a class="badge logout-button" href="/logout">Sair</a>
           </div>
@@ -477,37 +479,34 @@ const overviewContent = `
   </div>
   <section class="cards">
     <div class="card">
-      <h3>✨ Visão geral</h3>
-      <p>KPIs principais do período selecionado.</p>
+      <h3><span class="icon">✨</span> Visão geral</h3>
       <p><strong>VSL:</strong> <span id="metric-vsl">--</span> views</p>
       <p><strong>Cadastro:</strong> <span id="metric-signup">--</span> views</p>
       <p><strong>Confirmação:</strong> <span id="metric-confirmation">--</span> views</p>
     </div>
     <div class="card">
-      <h3>💰 Receita</h3>
+      <h3><span class="icon">💰</span> Receita</h3>
       <p><strong>Vendas:</strong> <span id="metric-sales-count">--</span></p>
       <p><strong>Receita:</strong> R$ <span id="metric-sales-revenue">--</span></p>
     </div>
     <div class="card">
-      <h3>📉 Funil</h3>
+      <h3><span class="icon">📉</span> Funil</h3>
       <p><strong>Aula 1:</strong> <span id="metric-aula1">--</span> views</p>
       <p><strong>Aula 2:</strong> <span id="metric-aula2">--</span> views</p>
       <p><strong>Aula 3:</strong> <span id="metric-aula3">--</span> views</p>
     </div>
     <div class="card">
-      <h3>🛠️ Operações</h3>
-      <p>Status das rotinas críticas e automações da equipe.</p>
+      <h3><span class="icon">🛠️</span> Operações</h3>
       <p>Make: estável | WPP: em monitoramento</p>
     </div>
     <div class="card">
-      <h3>👥 Comunidade</h3>
-      <p>Métricas sociais, engajamento e retenção.</p>
+      <h3><span class="icon">👥</span> Comunidade</h3>
       <p>Novos membros: --</p>
     </div>
   </section>
   <section class="timeline">
     <div class="timeline-header">
-      <h3>📊 Timeline do período</h3>
+      <h3><span class="icon">📊</span> Timeline do período</h3>
       <span class="status-pill status-ok">Mock</span>
     </div>
     <div class="chart" id="timeline-chart"></div>
@@ -582,7 +581,7 @@ const operationsContent = `
   ${genericTimeline}
   <section class="cards" style="margin-top: 18px;">
     <div class="card">
-      <h3>🛠️ Cenários Make.com</h3>
+      <h3><span class="icon">🛠️</span> Cenários Make.com</h3>
       <p><strong>Atendimento:</strong> <span class="status-pill status-ok">OK</span></p>
       <p><strong>Código da Visão - Compra:</strong> <span class="status-pill status-ok">OK</span></p>
       <p><strong>Jornada 20/20 - Compra:</strong> <span class="status-pill status-ok">OK</span></p>
@@ -591,7 +590,7 @@ const operationsContent = `
       <p><strong>Vendas:</strong> <span class="status-pill status-ok">OK</span></p>
     </div>
     <div class="card">
-      <h3>📱 WPP-Connect</h3>
+      <h3><span class="icon">📱</span> WPP-Connect</h3>
       <p><strong>Status:</strong> <span class="status-pill status-warn">Monitoramento</span></p>
       <p>PM2: aguardando integração do VPS externo.</p>
     </div>
@@ -602,7 +601,7 @@ const receitaContent = `
   ${genericTimeline}
   <section class="cards" style="margin-top: 18px;">
     <div class="card">
-      <h3>💰 Receita</h3>
+      <h3><span class="icon">💰</span> Receita</h3>
       <p><strong>Vendas:</strong> <span id="receita-count">--</span></p>
       <p><strong>Receita:</strong> R$ <span id="receita-revenue">--</span></p>
       <p style="margin-top: 12px; color: #b8b8c1;">Dados de exemplo até conectar a Hotmart.</p>
