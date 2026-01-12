@@ -307,7 +307,9 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .funnel-svg {
           width: 100%;
-          height: 100%;
+          max-width: 980px;
+          max-height: 620px;
+          height: auto;
           overflow: visible;
           z-index: 0;
         }
