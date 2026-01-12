@@ -202,7 +202,7 @@ app.get("/api/health", async () => {
   }
 });
 
-app.post("/api/ga4/sync", async (request, reply) => {
+const ga4SyncHandler = async (request, reply) => {
   try {
     const result = await syncGa4Metrics();
     return { ok: true, result };
@@ -210,7 +210,10 @@ app.post("/api/ga4/sync", async (request, reply) => {
     reply.code(500);
     return { ok: false, error: error.message };
   }
-});
+};
+
+app.post("/api/ga4/sync", ga4SyncHandler);
+app.post("/ga4/sync", ga4SyncHandler);
 
 app.get("/api/config/tracked-pages", async () => {
   const client = await pool.connect();
@@ -226,7 +229,7 @@ app.get("/api/config/tracked-pages", async () => {
   }
 });
 
-app.get("/api/overview", async (request) => {
+const overviewHandler = async (request) => {
   const { range = "7d" } = request.query ?? {};
   const days = Number(String(range).replace("d", "")) || 7;
   const client = await pool.connect();
@@ -298,7 +301,10 @@ app.get("/api/overview", async (request) => {
   } finally {
     client.release();
   }
-});
+};
+
+app.get("/api/overview", overviewHandler);
+app.get("/overview", overviewHandler);
 
 const getHotmartSignature = (request) => {
   const rawSignature =
