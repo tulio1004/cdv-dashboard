@@ -299,6 +299,71 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .status-ok { background: rgba(27, 217, 106, 0.2); color: var(--success); }
         .status-warn { background: rgba(255, 191, 0, 0.2); color: var(--warning); }
         .status-down { background: rgba(255, 77, 79, 0.2); color: var(--danger); }
+        .funnel-wrapper {
+          display: grid;
+          gap: 14px;
+          margin-top: 16px;
+        }
+        .funnel-row {
+          display: flex;
+          justify-content: center;
+        }
+        .funnel-block {
+          position: relative;
+          text-align: center;
+          padding: 18px 12px;
+          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+          border: 1px solid rgba(255, 255, 255, 0.08);
+          color: #ff6a00;
+          font-weight: 700;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          margin: 0 auto;
+        }
+        .funnel-block span {
+          display: block;
+          font-size: 12px;
+          color: var(--muted);
+          font-weight: 500;
+          letter-spacing: 0.04em;
+        }
+        .funnel-side {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+          color: var(--muted);
+          font-weight: 600;
+          font-size: 14px;
+          white-space: nowrap;
+        }
+        .funnel-side.left {
+          left: -120px;
+        }
+        .funnel-side.right {
+          right: -140px;
+        }
+        .funnel-row[data-step="1"] .funnel-block { width: 100%; clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%); }
+        .funnel-row[data-step="2"] .funnel-block { width: 90%; clip-path: polygon(6% 0, 94% 0, 98% 100%, 2% 100%); }
+        .funnel-row[data-step="3"] .funnel-block { width: 82%; clip-path: polygon(8% 0, 92% 0, 96% 100%, 4% 100%); }
+        .funnel-row[data-step="4"] .funnel-block { width: 74%; clip-path: polygon(10% 0, 90% 0, 94% 100%, 6% 100%); }
+        .funnel-row[data-step="5"] .funnel-block { width: 66%; clip-path: polygon(12% 0, 88% 0, 92% 100%, 8% 100%); }
+        .funnel-row[data-step="6"] .funnel-block { width: 58%; clip-path: polygon(14% 0, 86% 0, 90% 100%, 10% 100%); }
+        .engagement-grid {
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          gap: 16px;
+          margin-top: 20px;
+        }
+        .engagement-card details {
+          margin-top: 10px;
+          color: var(--muted);
+          font-size: 12px;
+        }
+        .engagement-card summary {
+          cursor: pointer;
+          color: var(--accent-strong);
+          font-weight: 600;
+        }
         .health {
           margin-top: 28px;
           display: flex;
@@ -592,82 +657,56 @@ const genericTimeline = `
 `;
 
 const funnelContent = `
-  <section class="cards">
-    <div class="card" style="grid-column: 1 / -1;">
-      <h3><span class="icon">🧭</span> Funil principal</h3>
-      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
-        <div class="card" style="min-width: 180px; flex: 1;">
-          <h3>VSL</h3>
-          <p><strong>Views:</strong> <span id="step-vsl">--</span></p>
-          <p><strong>Conv. → Cadastro:</strong> <span id="conv-signup">--</span>%</p>
+  <section class="card">
+    <h3><span class="icon">🧭</span> Funil principal</h3>
+    <div class="funnel-wrapper">
+      <div class="funnel-row" data-step="1">
+        <div class="funnel-block">
+          <div class="funnel-side left"><span id="funnel-vsl-views">--</span> Views</div>
+          VSL <span>100% BASE</span>
+          <div class="funnel-side right"><span id="funnel-vsl-conv">--</span>% Conversão</div>
         </div>
-        <div style="font-size: 20px;">➡️</div>
-        <div class="card" style="min-width: 180px; flex: 1;">
-          <h3>Cadastro</h3>
-          <p><strong>Views:</strong> <span id="step-signup">--</span></p>
-          <p><strong>Conv. → Confirmação:</strong> <span id="conv-confirmation">--</span>%</p>
+      </div>
+      <div class="funnel-row" data-step="2">
+        <div class="funnel-block">
+          <div class="funnel-side left"><span id="funnel-signup-views">--</span> Views</div>
+          Cadastro <span>VS VSL</span>
+          <div class="funnel-side right"><span id="funnel-signup-conv">--</span>% Conversão</div>
         </div>
-        <div style="font-size: 20px;">➡️</div>
-        <div class="card" style="min-width: 180px; flex: 1;">
-          <h3>Confirmação</h3>
-          <p><strong>Views:</strong> <span id="step-confirmation">--</span></p>
-          <p><strong>Conv. → Aula 1:</strong> <span id="conv-aula1">--</span>%</p>
+      </div>
+      <div class="funnel-row" data-step="3">
+        <div class="funnel-block">
+          <div class="funnel-side left"><span id="funnel-confirmation-views">--</span> Views</div>
+          Confirmação <span>VS CADASTRO</span>
+          <div class="funnel-side right"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
         </div>
-        <div style="font-size: 20px;">➡️</div>
-        <div class="card" style="min-width: 180px; flex: 1;">
-          <h3>Aula 1</h3>
-          <p><strong>Views:</strong> <span id="step-aula1">--</span></p>
-          <p><strong>Conv. → Aula 2:</strong> <span id="conv-aula2">--</span>%</p>
+      </div>
+      <div class="funnel-row" data-step="4">
+        <div class="funnel-block">
+          <div class="funnel-side left"><span id="funnel-aula1-views">--</span> Views</div>
+          Aula 1 <span>VS CONFIRMAÇÃO</span>
+          <div class="funnel-side right"><span id="funnel-aula1-conv">--</span>% Conversão</div>
         </div>
-        <div style="font-size: 20px;">➡️</div>
-        <div class="card" style="min-width: 180px; flex: 1;">
-          <h3>Aula 2</h3>
-          <p><strong>Views:</strong> <span id="step-aula2">--</span></p>
-          <p><strong>Conv. → Aula 3:</strong> <span id="conv-aula3">--</span>%</p>
+      </div>
+      <div class="funnel-row" data-step="5">
+        <div class="funnel-block">
+          <div class="funnel-side left"><span id="funnel-aula2-views">--</span> Views</div>
+          Aula 2 <span>VS AULA 1</span>
+          <div class="funnel-side right"><span id="funnel-aula2-conv">--</span>% Conversão</div>
         </div>
-        <div style="font-size: 20px;">➡️</div>
-        <div class="card" style="min-width: 180px; flex: 1;">
-          <h3>Aula 3</h3>
-          <p><strong>Views:</strong> <span id="step-aula3">--</span></p>
-          <p><strong>Etapa final</strong></p>
+      </div>
+      <div class="funnel-row" data-step="6">
+        <div class="funnel-block">
+          <div class="funnel-side left"><span id="funnel-aula3-views">--</span> Views</div>
+          Aula 3 <span>VS CONFIRMAÇÃO</span>
+          <div class="funnel-side right"><span id="funnel-aula3-conv">--</span>% Conversão</div>
         </div>
       </div>
     </div>
   </section>
-  <section class="timeline">
-    <div class="timeline-header">
-      <h3><span class="icon">📊</span> Timeline do período</h3>
-      <span class="status-pill status-ok">Mock</span>
-    </div>
-    <div class="chart" id="timeline-chart-secondary"></div>
-    <div class="timeline-list">
-      <div class="timeline-item">🗓️ Picos e variações diárias (placeholder)</div>
-      <div class="timeline-item">📌 Tendência será exibida com dados reais</div>
-    </div>
-  </section>
-  <section class="cards" style="margin-top: 18px;">
-    <div class="card" style="grid-column: 1 / -1;">
-      <h3><span class="icon">📄</span> Páginas monitoradas</h3>
-      <p style="margin-bottom: 12px;">Views, engajamento e tendência vs período anterior.</p>
-      <div style="overflow-x: auto;">
-        <table style="width: 100%; border-collapse: collapse;">
-          <thead>
-            <tr style="text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;">
-              <th style="padding: 8px 6px;">Página</th>
-              <th style="padding: 8px 6px;">URL</th>
-              <th style="padding: 8px 6px;">Views</th>
-              <th style="padding: 8px 6px;">Engajamento médio</th>
-              <th style="padding: 8px 6px;">Tendência</th>
-            </tr>
-          </thead>
-          <tbody id="funnel-table">
-            <tr>
-              <td colspan="5" style="padding: 12px 6px; color: var(--muted);">Carregando...</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
+  <section class="card" style="margin-top: 18px;">
+    <h3><span class="icon">⏱️</span> Tempo médio por página</h3>
+    <div class="engagement-grid" id="engagement-grid"></div>
   </section>
 `;
 
@@ -688,40 +727,11 @@ const funnelScript = `
           if (!data?.ok) return;
           const rows = data.funnel?.pages || [];
           const bySlug = Object.fromEntries(rows.map((row) => [row.slug, row]));
-          const tableBody = document.getElementById("funnel-table");
-          if (tableBody) {
-            tableBody.innerHTML = rows
-              .map((row) => {
-                return (
-                  '<tr>' +
-                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border);">' +
-                  row.label +
-                  "</td>" +
-                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border); color: var(--muted);">' +
-                  row.url +
-                  "</td>" +
-                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border);">' +
-                  formatNumber(row.views) +
-                  "</td>" +
-                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border);">' +
-                  formatNumber(row.avg_engagement) +
-                  "s</td>" +
-                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border); color: var(--muted);">--</td>' +
-                  "</tr>"
-                );
-              })
-              .join("");
-          }
           const setText = (id, value) => {
             const el = document.getElementById(id);
             if (el) el.textContent = value;
           };
-          setText("step-vsl", formatNumber(bySlug.vsl?.views));
-          setText("step-signup", formatNumber(bySlug.signup?.views));
-          setText("step-confirmation", formatNumber(bySlug.confirmation?.views));
-          setText("step-aula1", formatNumber(bySlug.aula1?.views));
-          setText("step-aula2", formatNumber(bySlug.aula2?.views));
-          setText("step-aula3", formatNumber(bySlug.aula3?.views));
+
           const percent = (num, den) => (den ? (num / den) * 100 : 0);
           const vslViews = Number(bySlug.vsl?.views) || 0;
           const signupViews = Number(bySlug.signup?.views) || 0;
@@ -730,11 +740,44 @@ const funnelScript = `
           const aula2Views = Number(bySlug.aula2?.views) || 0;
           const aula3Views = Number(bySlug.aula3?.views) || 0;
 
-          setText("conv-signup", formatPercent(percent(signupViews, vslViews)));
-          setText("conv-confirmation", formatPercent(percent(confirmationViews, signupViews)));
-          setText("conv-aula1", formatPercent(percent(aula1Views, confirmationViews)));
-          setText("conv-aula2", formatPercent(percent(aula2Views, aula1Views)));
-          setText("conv-aula3", formatPercent(percent(aula3Views, aula2Views)));
+          setText("funnel-vsl-views", formatNumber(vslViews));
+          setText("funnel-signup-views", formatNumber(signupViews));
+          setText("funnel-confirmation-views", formatNumber(confirmationViews));
+          setText("funnel-aula1-views", formatNumber(aula1Views));
+          setText("funnel-aula2-views", formatNumber(aula2Views));
+          setText("funnel-aula3-views", formatNumber(aula3Views));
+
+          setText("funnel-vsl-conv", formatPercent(100));
+          setText("funnel-signup-conv", formatPercent(percent(signupViews, vslViews)));
+          setText("funnel-confirmation-conv", formatPercent(percent(confirmationViews, signupViews)));
+          setText("funnel-aula1-conv", formatPercent(percent(aula1Views, confirmationViews)));
+          setText("funnel-aula2-conv", formatPercent(percent(aula2Views, aula1Views)));
+          setText("funnel-aula3-conv", formatPercent(percent(aula3Views, confirmationViews)));
+
+          const engagementGrid = document.getElementById("engagement-grid");
+          if (engagementGrid) {
+            engagementGrid.innerHTML = rows
+              .map((row) => {
+                return (
+                  '<div class="card engagement-card">' +
+                  '<h3><span class="icon">⏱️</span> ' +
+                  row.label +
+                  "</h3>" +
+                  '<p><strong>Tempo médio:</strong> ' +
+                  formatNumber(row.avg_engagement) +
+                  "s</p>" +
+                  "<details>" +
+                  "<summary>Detalhes GA</summary>" +
+                  "<p>Localização: --</p>" +
+                  "<p>Usuários online: --</p>" +
+                  "<p>Dispositivos: --</p>" +
+                  "<p>Origem de tráfego: --</p>" +
+                  "</details>" +
+                  "</div>"
+                );
+              })
+              .join("");
+          }
         });
     };
 
