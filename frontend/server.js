@@ -349,6 +349,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           color: var(--muted);
           font-weight: 600;
           font-size: 14px;
+          align-items: center;
           white-space: nowrap;
           align-self: center;
         }
