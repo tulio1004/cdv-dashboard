@@ -345,12 +345,13 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .funnel-metrics {
           position: relative;
-          height: var(--funnel-height);
+          height: calc(var(--funnel-height) * 0.86);
           color: var(--muted);
           font-weight: 600;
           font-size: 14px;
           align-items: center;
           white-space: nowrap;
+          align-self: center;
         }
         .funnel-metrics.left {
           justify-items: end;
