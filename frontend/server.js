@@ -331,13 +331,13 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .funnel-label-text {
           fill: #ff6a00 !important;
           font-weight: 700;
-          font-size: 34px;
+          font-size: 40px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
         }
         .funnel-subtext {
           fill: var(--muted);
-          font-size: 28px;
+          font-size: 32px;
           letter-spacing: 0.04em;
           text-transform: uppercase;
           font-weight: 500;
@@ -686,37 +686,37 @@ const funnelContent = `
         <div class="funnel-metric"><span id="funnel-aula2-views">--</span> Views</div>
         <div class="funnel-metric"><span id="funnel-aula3-views">--</span> Views</div>
       </div>
-      <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
+<svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
         <defs>
           <linearGradient id="funnel-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2d2d35" />
-            <stop offset="50%" stop-color="#232327" />
-            <stop offset="100%" stop-color="#1b1b20" />
+            <stop offset="0%" stop-color="#2d2d35"></stop>
+            <stop offset="50%" stop-color="#232327"></stop>
+            <stop offset="100%" stop-color="#1b1b20"></stop>
           </linearGradient>
           <linearGradient id="funnel-gradient-hover" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#33333c" />
-            <stop offset="50%" stop-color="#2b2b31" />
-            <stop offset="100%" stop-color="#1f1f24" />
+            <stop offset="0%" stop-color="#33333c"></stop>
+            <stop offset="50%" stop-color="#2b2b31"></stop>
+            <stop offset="100%" stop-color="#1f1f24"></stop>
           </linearGradient>
         </defs>
-        <path id="AULA_3" class="funnel-segment" fill="url(#funnel-gradient)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
-        <path id="AULA_2" class="funnel-segment" fill="url(#funnel-gradient)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"/>
-        <path id="AULA_1" class="funnel-segment" fill="url(#funnel-gradient)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"/>
-        <path id="CONFIRMACAO" class="funnel-segment" fill="url(#funnel-gradient)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
-        <path id="CADASTRO" class="funnel-segment" fill="url(#funnel-gradient)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
-        <path id="VSL" class="funnel-segment" fill="url(#funnel-gradient)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
-        <text class="funnel-label-text" x="866.65" y="160" text-anchor="middle" dominant-baseline="middle">VSL</text>
-        <text class="funnel-subtext" x="866.65" y="205" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
-        <text class="funnel-label-text" x="866.65" y="410" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
-        <text class="funnel-subtext" x="866.65" y="455" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
-        <text class="funnel-label-text" x="866.65" y="660" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
-        <text class="funnel-subtext" x="866.65" y="705" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
-        <text class="funnel-label-text" x="866.65" y="910" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
-        <text class="funnel-subtext" x="866.65" y="955" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
-        <text class="funnel-label-text" x="866.65" y="1160" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
-        <text class="funnel-subtext" x="866.65" y="1205" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
-        <text class="funnel-label-text" x="866.65" y="1410" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
-        <text class="funnel-subtext" x="866.65" y="1455" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+        <path id="AULA_3" class="funnel-segment" fill="url(#funnel-gradient)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"></path>
+        <path id="AULA_2" class="funnel-segment" fill="url(#funnel-gradient)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"></path>
+        <path id="AULA_1" class="funnel-segment" fill="url(#funnel-gradient)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"></path>
+        <path id="CONFIRMACAO" class="funnel-segment" fill="url(#funnel-gradient)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"></path>
+        <path id="CADASTRO" class="funnel-segment" fill="url(#funnel-gradient)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"></path>
+        <path id="VSL" class="funnel-segment" fill="url(#funnel-gradient)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"></path>
+        <text class="funnel-label-text" x="866.65" y="130" text-anchor="middle" dominant-baseline="middle">VSL</text>
+        <text class="funnel-subtext" x="866.65" y="200" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
+        <text class="funnel-label-text" x="866.65" y="380" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+        <text class="funnel-subtext" x="866.65" y="450" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
+        <text class="funnel-label-text" x="866.65" y="630" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
+        <text class="funnel-subtext" x="866.65" y="700" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
+        <text class="funnel-label-text" x="866.65" y="880" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
+        <text class="funnel-subtext" x="866.65" y="950" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+        <text class="funnel-label-text" x="866.65" y="1130" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
+        <text class="funnel-subtext" x="866.65" y="1200" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
+        <text class="funnel-label-text" x="866.65" y="1380" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
+        <text class="funnel-subtext" x="866.65" y="1450" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
       </svg>
       <div class="funnel-metrics right">
         <div class="funnel-metric"><span id="funnel-vsl-conv">--</span>% Conversão</div>
