@@ -754,12 +754,12 @@ const funnelContent = `
     <h3><span class="icon">🧭</span> Funil principal</h3>
     <div class="funnel-wrapper">
       <div class="funnel-metrics left">
-        <div class="funnel-metric" style="--metric-y: 8.34%;"><span id="funnel-vsl-views">--</span> Views</div>
-        <div class="funnel-metric" style="--metric-y: 24.38%;"><span id="funnel-signup-views">--</span> Views</div>
-        <div class="funnel-metric" style="--metric-y: 40.41%;"><span id="funnel-confirmation-views">--</span> Views</div>
-        <div class="funnel-metric" style="--metric-y: 56.45%;"><span id="funnel-aula1-views">--</span> Views</div>
-        <div class="funnel-metric" style="--metric-y: 72.49%;"><span id="funnel-aula2-views">--</span> Views</div>
-        <div class="funnel-metric" style="--metric-y: 88.52%;"><span id="funnel-aula3-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 10%;"><span id="funnel-vsl-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 25%;"><span id="funnel-signup-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 42%;"><span id="funnel-confirmation-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 58%;"><span id="funnel-aula1-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 75%;"><span id="funnel-aula2-views">--</span> Views</div>
+        <div class="funnel-metric" style="--metric-y: 92%;"><span id="funnel-aula3-views">--</span> Views</div>
       </div>
       <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
         <defs>
@@ -794,12 +794,12 @@ const funnelContent = `
         <text class="funnel-subtext" x="866.65" y="1450" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
       </svg>
       <div class="funnel-metrics right">
-        <div class="funnel-metric" style="--metric-y: 8.34%;"><span id="funnel-vsl-conv">--</span>% Conversão</div>
-        <div class="funnel-metric" style="--metric-y: 24.38%;"><span id="funnel-signup-conv">--</span>% Conversão</div>
-        <div class="funnel-metric" style="--metric-y: 40.41%;"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
-        <div class="funnel-metric" style="--metric-y: 56.45%;"><span id="funnel-aula1-conv">--</span>% Conversão</div>
-        <div class="funnel-metric" style="--metric-y: 72.49%;"><span id="funnel-aula2-conv">--</span>% Conversão</div>
-        <div class="funnel-metric" style="--metric-y: 88.52%;"><span id="funnel-aula3-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 10%;"><span id="funnel-vsl-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 25%;"><span id="funnel-signup-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 42%;"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 58%;"><span id="funnel-aula1-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 75%;"><span id="funnel-aula2-conv">--</span>% Conversão</div>
+        <div class="funnel-metric" style="--metric-y: 92%;"><span id="funnel-aula3-conv">--</span>% Conversão</div>
       </div>
     </div>
   </section>
