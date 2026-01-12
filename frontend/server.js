@@ -301,32 +301,24 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .status-down { background: rgba(255, 77, 79, 0.2); color: var(--danger); }
         .funnel-wrapper {
           margin-top: 16px;
-          position: relative;
           display: grid;
           grid-template-columns: minmax(140px, 200px) minmax(0, 1fr) minmax(140px, 200px);
           gap: 16px;
           align-items: center;
-        }
-        .funnel-stage {
-          position: relative;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          max-width: 750px;
+          --funnel-height: 520px;
         }
         .funnel-svg {
-          width: 80%;
-          max-height: 620px;
-          height: auto;
+          width: 100%;
+          max-width: 750px;
+          height: var(--funnel-height);
           overflow: visible;
+          justify-self: center;
           z-index: 0;
         }
         .funnel-segment {
-          fill: url(#funnel-gradient);
           transition: fill 0.2s ease, filter 0.2s ease, opacity 0.2s ease;
         }
         .funnel-segment:hover {
-          fill: url(#funnel-gradient-hover);
           filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.45));
         }
         .funnel-svg text {
@@ -349,8 +341,9 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .funnel-metrics {
           display: grid;
-          grid-template-rows: repeat(6, minmax(64px, 1fr));
-          gap: 12px;
+          grid-template-rows: repeat(6, 1fr);
+          height: var(--funnel-height);
+          gap: 0;
           color: var(--muted);
           font-weight: 600;
           font-size: 14px;
@@ -368,7 +361,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .funnel-metric {
           display: flex;
           align-items: center;
-          min-height: 48px;
+          min-height: 0;
         }
         .engagement-grid {
           display: grid;
@@ -690,46 +683,38 @@ const funnelContent = `
         <div class="funnel-metric"><span id="funnel-aula2-views">--</span> Views</div>
         <div class="funnel-metric"><span id="funnel-aula3-views">--</span> Views</div>
       </div>
-      <div class="funnel-stage">
-        <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="none" role="img" aria-label="Funil principal">
-          <defs>
-            <linearGradient id="funnel-gradient" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#2d2d35" />
-              <stop offset="50%" stop-color="#232327" />
-              <stop offset="100%" stop-color="#1b1b20" />
-            </linearGradient>
-            <linearGradient id="funnel-gradient-hover" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#33333c" />
-              <stop offset="50%" stop-color="#2b2b31" />
-              <stop offset="100%" stop-color="#1f1f24" />
-            </linearGradient>
-          </defs>
-          <path id="AULA_3" class="funnel-segment" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
-          <path id="AULA_2" class="funnel-segment" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"/>
-          <path id="AULA_1" class="funnel-segment" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"/>
-          <path id="CONFIRMACAO" class="funnel-segment" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
-          <path id="CADASTRO" class="funnel-segment" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
-          <path id="VSL" class="funnel-segment" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
-
-          <text class="funnel-label-text" x="866.65" y="176" text-anchor="middle" dominant-baseline="middle">VSL</text>
-          <text class="funnel-subtext" x="866.65" y="235" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
-
-          <text class="funnel-label-text" x="866.65" y="426" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
-          <text class="funnel-subtext" x="866.65" y="485" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
-
-          <text class="funnel-label-text" x="866.65" y="676" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
-          <text class="funnel-subtext" x="866.65" y="735" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
-
-          <text class="funnel-label-text" x="866.65" y="926" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
-          <text class="funnel-subtext" x="866.65" y="985" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
-
-          <text class="funnel-label-text" x="866.65" y="1176" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
-          <text class="funnel-subtext" x="866.65" y="1235" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
-
-          <text class="funnel-label-text" x="866.65" y="1426" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
-          <text class="funnel-subtext" x="866.65" y="1485" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
-        </svg>
-      </div>
+      <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
+        <defs>
+          <linearGradient id="funnel-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#2d2d35" />
+            <stop offset="50%" stop-color="#232327" />
+            <stop offset="100%" stop-color="#1b1b20" />
+          </linearGradient>
+          <linearGradient id="funnel-gradient-hover" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#33333c" />
+            <stop offset="50%" stop-color="#2b2b31" />
+            <stop offset="100%" stop-color="#1f1f24" />
+          </linearGradient>
+        </defs>
+        <path id="AULA_3" class="funnel-segment" fill="url(#funnel-gradient)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="AULA_2" class="funnel-segment" fill="url(#funnel-gradient)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"/>
+        <path id="AULA_1" class="funnel-segment" fill="url(#funnel-gradient)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"/>
+        <path id="CONFIRMACAO" class="funnel-segment" fill="url(#funnel-gradient)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="CADASTRO" class="funnel-segment" fill="url(#funnel-gradient)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="VSL" class="funnel-segment" fill="url(#funnel-gradient)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
+        <text class="funnel-label-text" x="866.65" y="180" text-anchor="middle" dominant-baseline="middle">VSL</text>
+        <text class="funnel-subtext" x="866.65" y="225" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
+        <text class="funnel-label-text" x="866.65" y="430" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+        <text class="funnel-subtext" x="866.65" y="475" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
+        <text class="funnel-label-text" x="866.65" y="680" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
+        <text class="funnel-subtext" x="866.65" y="725" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
+        <text class="funnel-label-text" x="866.65" y="930" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
+        <text class="funnel-subtext" x="866.65" y="975" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+        <text class="funnel-label-text" x="866.65" y="1180" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
+        <text class="funnel-subtext" x="866.65" y="1225" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
+        <text class="funnel-label-text" x="866.65" y="1430" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
+        <text class="funnel-subtext" x="866.65" y="1475" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+      </svg>
       <div class="funnel-metrics right">
         <div class="funnel-metric"><span id="funnel-vsl-conv">--</span>% Conversão</div>
         <div class="funnel-metric"><span id="funnel-signup-conv">--</span>% Conversão</div>
