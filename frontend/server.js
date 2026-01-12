@@ -103,6 +103,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .icon {
           color: #fff;
+          font-size: 25px;
         }
         .nav a.active,
         .nav a:hover {
@@ -300,59 +301,144 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .status-warn { background: rgba(255, 191, 0, 0.2); color: var(--warning); }
         .status-down { background: rgba(255, 77, 79, 0.2); color: var(--danger); }
         .funnel-wrapper {
-          display: grid;
-          gap: 14px;
           margin-top: 16px;
-        }
-        .funnel-row {
           display: flex;
           justify-content: center;
+          --funnel-height: 60vh;
         }
-        .funnel-block {
+        .funnel-container {
+          width: 100%;
+          max-width: 650px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          align-items: center;
+        }
+        .funnel-segment {
           position: relative;
+          height: 90px;
+          width: 100%;
+          background: linear-gradient(180deg, #2c2c31 0%, #1a1a1e 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .funnel-segment:hover {
+          filter: brightness(1.2);
+          transform: scale(1.02);
+        }
+        .row-0 { clip-path: polygon(0% 0%, 100% 0%, 96% 100%, 4% 100%); }
+        .row-1 { clip-path: polygon(4% 0%, 96% 0%, 92% 100%, 8% 100%); }
+        .row-2 { clip-path: polygon(8% 0%, 92% 0%, 88% 100%, 12% 100%); }
+        .row-3 { clip-path: polygon(12% 0%, 88% 0%, 84% 100%, 16% 100%); }
+        .row-4 { clip-path: polygon(16% 0%, 84% 0%, 80% 100%, 20% 100%); }
+        .row-5 { clip-path: polygon(20% 0%, 80% 0%, 76% 100%, 24% 100%); }
+        .content-wrapper {
           text-align: center;
-          padding: 18px 12px;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #ff6a00;
+        }
+        .funnel-title {
+          color: #f37021;
+          font-weight: 900;
+          font-size: 18px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        .metrics-container {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-top: 12px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #8d8d99;
+        }
+        @media (max-width: 768px) {
+          .funnel-segment {
+            height: 80px;
+          }
+          .funnel-title {
+            font-size: 14px;
+          }
+          .metrics-container {
+            font-size: 10px;
+            gap: 15px;
+            margin-top: 10px;
+          }
+        }
+        .engagement-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 16px;
+          margin-top: 20px;
+        }
+        .engagement-grid .card {
+          display: grid;
+          gap: 12px;
+        }
+        .engagement-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+        .engagement-title {
+          margin: 0;
+          font-size: 20px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .engagement-row {
+          display: grid;
+          gap: 6px;
+          padding: 10px 12px;
+          border-radius: 12px;
+          background: #111115;
+          border: 1px solid var(--border);
+        }
+        .engagement-section {
+          color: var(--accent-strong);
           font-weight: 700;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          margin: 0 auto;
-        }
-        .funnel-block span {
-          display: block;
           font-size: 12px;
-          color: var(--muted);
-          font-weight: 500;
-          letter-spacing: 0.04em;
         }
-        .funnel-side {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          color: var(--muted);
+        .engagement-metric {
+          margin: 0;
+          color: #fff;
           font-weight: 600;
-          font-size: 14px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 20px;
+        }
+        .engagement-metric span {
+          color: var(--accent-strong);
+          font-weight: 700;
+        }
+        .engagement-full {
+          padding: 6px 14px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          color: #fff;
+          font-size: 11px;
+          font-weight: 700;
+          text-decoration: none;
+          letter-spacing: 0.08em;
           white-space: nowrap;
         }
-        .funnel-side.left {
-          left: -120px;
+        @media (max-width: 1100px) {
+          .engagement-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
         }
-        .funnel-side.right {
-          right: -140px;
-        }
-        .funnel-row[data-step="1"] .funnel-block { width: 100%; clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%); }
-        .funnel-row[data-step="2"] .funnel-block { width: 90%; clip-path: polygon(6% 0, 94% 0, 98% 100%, 2% 100%); }
-        .funnel-row[data-step="3"] .funnel-block { width: 82%; clip-path: polygon(8% 0, 92% 0, 96% 100%, 4% 100%); }
-        .funnel-row[data-step="4"] .funnel-block { width: 74%; clip-path: polygon(10% 0, 90% 0, 94% 100%, 6% 100%); }
-        .funnel-row[data-step="5"] .funnel-block { width: 66%; clip-path: polygon(12% 0, 88% 0, 92% 100%, 8% 100%); }
-        .funnel-row[data-step="6"] .funnel-block { width: 58%; clip-path: polygon(14% 0, 86% 0, 90% 100%, 10% 100%); }
-        .engagement-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 16px;
-          margin-top: 20px;
+        @media (max-width: 720px) {
+          .engagement-grid {
+            grid-template-columns: 1fr;
+          }
         }
         .engagement-card details {
           margin-top: 10px;
@@ -660,53 +746,164 @@ const funnelContent = `
   <section class="card">
     <h3><span class="icon">🧭</span> Funil principal</h3>
     <div class="funnel-wrapper">
-      <div class="funnel-row" data-step="1">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-vsl-views">--</span> Views</div>
-          VSL <span>100% BASE</span>
-          <div class="funnel-side right"><span id="funnel-vsl-conv">--</span>% Conversão</div>
+      <div class="funnel-container" id="funnel-body">
+        <div class="funnel-segment row-0">
+          <div class="content-wrapper">
+            <div class="funnel-title">VSL</div>
+            <div class="metrics-container">
+              <span id="funnel-vsl-views">-- Views</span>
+              <span id="funnel-vsl-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="2">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-signup-views">--</span> Views</div>
-          Cadastro <span>VS VSL</span>
-          <div class="funnel-side right"><span id="funnel-signup-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-1">
+          <div class="content-wrapper">
+            <div class="funnel-title">Cadastro</div>
+            <div class="metrics-container">
+              <span id="funnel-signup-views">-- Views</span>
+              <span id="funnel-signup-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="3">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-confirmation-views">--</span> Views</div>
-          Confirmação <span>VS CADASTRO</span>
-          <div class="funnel-side right"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-2">
+          <div class="content-wrapper">
+            <div class="funnel-title">Confirmação</div>
+            <div class="metrics-container">
+              <span id="funnel-confirmation-views">-- Views</span>
+              <span id="funnel-confirmation-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="4">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula1-views">--</span> Views</div>
-          Aula 1 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula1-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-3">
+          <div class="content-wrapper">
+            <div class="funnel-title">Aula 1</div>
+            <div class="metrics-container">
+              <span id="funnel-aula1-views">-- Views</span>
+              <span id="funnel-aula1-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="5">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula2-views">--</span> Views</div>
-          Aula 2 <span>VS AULA 1</span>
-          <div class="funnel-side right"><span id="funnel-aula2-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-4">
+          <div class="content-wrapper">
+            <div class="funnel-title">Aula 2</div>
+            <div class="metrics-container">
+              <span id="funnel-aula2-views">-- Views</span>
+              <span id="funnel-aula2-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="6">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula3-views">--</span> Views</div>
-          Aula 3 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula3-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-5">
+          <div class="content-wrapper">
+            <div class="funnel-title">Aula 3</div>
+            <div class="metrics-container">
+              <span id="funnel-aula3-views">-- Views</span>
+              <span id="funnel-aula3-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
   <section class="card" style="margin-top: 18px;">
-    <h3><span class="icon">⏱️</span> Tempo médio por página</h3>
-    <div class="engagement-grid" id="engagement-grid"></div>
+    <h3><span class="icon">📄</span> Páginas</h3>
+    <div class="engagement-grid">
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">VSL</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Cadastro</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Confirmação</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 1</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 2</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 3</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span>x min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span>x%</span></p>
+        </div>
+      </div>
+    </div>
   </section>
 `;
 
@@ -754,30 +951,6 @@ const funnelScript = `
           setText("funnel-aula2-conv", formatPercent(percent(aula2Views, aula1Views)));
           setText("funnel-aula3-conv", formatPercent(percent(aula3Views, confirmationViews)));
 
-          const engagementGrid = document.getElementById("engagement-grid");
-          if (engagementGrid) {
-            engagementGrid.innerHTML = rows
-              .map((row) => {
-                return (
-                  '<div class="card engagement-card">' +
-                  '<h3><span class="icon">⏱️</span> ' +
-                  row.label +
-                  "</h3>" +
-                  '<p><strong>Tempo médio:</strong> ' +
-                  formatNumber(row.avg_engagement) +
-                  "s</p>" +
-                  "<details>" +
-                  "<summary>Detalhes GA</summary>" +
-                  "<p>Localização: --</p>" +
-                  "<p>Usuários online: --</p>" +
-                  "<p>Dispositivos: --</p>" +
-                  "<p>Origem de tráfego: --</p>" +
-                  "</details>" +
-                  "</div>"
-                );
-              })
-              .join("");
-          }
         });
     };
 
