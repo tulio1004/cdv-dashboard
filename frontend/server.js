@@ -103,6 +103,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .icon {
           color: #fff;
+          font-size: 25px;
         }
         .nav a.active,
         .nav a:hover {
@@ -207,6 +208,26 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           margin: 0 0 8px;
           font-size: 16px;
         }
+        .sidebar-refresh {
+          border: 1px solid var(--border);
+          background: #0f0f10;
+          color: var(--text);
+          padding: 8px 12px;
+          border-radius: 999px;
+          font-weight: 600;
+          font-size: 13px;
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .sidebar-refresh:hover:not(:disabled) {
+          transform: translateY(-1px);
+          border-color: var(--accent-strong);
+          box-shadow: 0 8px 16px rgba(243, 32, 21, 0.2);
+        }
+        .sidebar-refresh:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
         .card p {
           margin: 6px 0 0;
           color: var(--muted);
@@ -300,59 +321,144 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .status-warn { background: rgba(255, 191, 0, 0.2); color: var(--warning); }
         .status-down { background: rgba(255, 77, 79, 0.2); color: var(--danger); }
         .funnel-wrapper {
-          display: grid;
-          gap: 14px;
           margin-top: 16px;
-        }
-        .funnel-row {
           display: flex;
           justify-content: center;
+          --funnel-height: 60vh;
         }
-        .funnel-block {
+        .funnel-container {
+          width: 100%;
+          max-width: 650px;
+          display: flex;
+          flex-direction: column;
+          gap: 12px;
+          align-items: center;
+        }
+        .funnel-segment {
           position: relative;
+          height: 90px;
+          width: 100%;
+          background: linear-gradient(180deg, #2c2c31 0%, #1a1a1e 100%);
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        }
+        .funnel-segment:hover {
+          filter: brightness(1.2);
+          transform: scale(1.02);
+        }
+        .row-0 { clip-path: polygon(0% 0%, 100% 0%, 96% 100%, 4% 100%); }
+        .row-1 { clip-path: polygon(4% 0%, 96% 0%, 92% 100%, 8% 100%); }
+        .row-2 { clip-path: polygon(8% 0%, 92% 0%, 88% 100%, 12% 100%); }
+        .row-3 { clip-path: polygon(12% 0%, 88% 0%, 84% 100%, 16% 100%); }
+        .row-4 { clip-path: polygon(16% 0%, 84% 0%, 80% 100%, 20% 100%); }
+        .row-5 { clip-path: polygon(20% 0%, 80% 0%, 76% 100%, 24% 100%); }
+        .content-wrapper {
           text-align: center;
-          padding: 18px 12px;
-          background: linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
-          border: 1px solid rgba(255, 255, 255, 0.08);
-          color: #ff6a00;
+        }
+        .funnel-title {
+          color: #f37021;
+          font-weight: 900;
+          font-size: 18px;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+        }
+        .metrics-container {
+          display: flex;
+          justify-content: center;
+          gap: 20px;
+          margin-top: 12px;
+          font-size: 12px;
+          font-weight: 600;
+          color: #8d8d99;
+        }
+        @media (max-width: 768px) {
+          .funnel-segment {
+            height: 80px;
+          }
+          .funnel-title {
+            font-size: 14px;
+          }
+          .metrics-container {
+            font-size: 10px;
+            gap: 15px;
+            margin-top: 10px;
+          }
+        }
+        .engagement-grid {
+          display: grid;
+          grid-template-columns: repeat(3, minmax(0, 1fr));
+          gap: 16px;
+          margin-top: 20px;
+        }
+        .engagement-grid .card {
+          display: grid;
+          gap: 12px;
+        }
+        .engagement-header {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 12px;
+        }
+        .engagement-title {
+          margin: 0;
+          font-size: 20px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .engagement-row {
+          display: grid;
+          gap: 6px;
+          padding: 10px 12px;
+          border-radius: 12px;
+          background: #111115;
+          border: 1px solid var(--border);
+        }
+        .engagement-section {
+          color: var(--accent-strong);
           font-weight: 700;
           letter-spacing: 0.08em;
           text-transform: uppercase;
-          margin: 0 auto;
-        }
-        .funnel-block span {
-          display: block;
           font-size: 12px;
-          color: var(--muted);
-          font-weight: 500;
-          letter-spacing: 0.04em;
         }
-        .funnel-side {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-          color: var(--muted);
+        .engagement-metric {
+          margin: 0;
+          color: #fff;
           font-weight: 600;
-          font-size: 14px;
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-size: 20px;
+        }
+        .engagement-metric span {
+          color: var(--accent-strong);
+          font-weight: 700;
+        }
+        .engagement-full {
+          padding: 6px 14px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          color: #fff;
+          font-size: 11px;
+          font-weight: 700;
+          text-decoration: none;
+          letter-spacing: 0.08em;
           white-space: nowrap;
         }
-        .funnel-side.left {
-          left: -120px;
+        @media (max-width: 1100px) {
+          .engagement-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
         }
-        .funnel-side.right {
-          right: -140px;
-        }
-        .funnel-row[data-step="1"] .funnel-block { width: 100%; clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%); }
-        .funnel-row[data-step="2"] .funnel-block { width: 90%; clip-path: polygon(6% 0, 94% 0, 98% 100%, 2% 100%); }
-        .funnel-row[data-step="3"] .funnel-block { width: 82%; clip-path: polygon(8% 0, 92% 0, 96% 100%, 4% 100%); }
-        .funnel-row[data-step="4"] .funnel-block { width: 74%; clip-path: polygon(10% 0, 90% 0, 94% 100%, 6% 100%); }
-        .funnel-row[data-step="5"] .funnel-block { width: 66%; clip-path: polygon(12% 0, 88% 0, 92% 100%, 8% 100%); }
-        .funnel-row[data-step="6"] .funnel-block { width: 58%; clip-path: polygon(14% 0, 86% 0, 90% 100%, 10% 100%); }
-        .engagement-grid {
-          display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-          gap: 16px;
-          margin-top: 20px;
+        @media (max-width: 720px) {
+          .engagement-grid {
+            grid-template-columns: 1fr;
+          }
         }
         .engagement-card details {
           margin-top: 10px;
@@ -435,6 +541,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
               <input type="date" id="sidebar-end" />
               <button class="button" type="button" id="sidebar-apply">Aplicar</button>
             </div>
+            <button class="sidebar-refresh" id="ga4-refresh" type="button">🔄 Atualizar dados</button>
           </div>
         </aside>
         <main class="content">
@@ -539,6 +646,34 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           renderChart(range, "timeline-chart");
           renderChart(range, "timeline-chart-secondary");
         });
+
+        const bindSidebarRefresh = () => {
+          const button = document.getElementById("ga4-refresh");
+          if (!button || button.dataset.bound) return;
+          button.dataset.bound = "true";
+          button.addEventListener("click", async () => {
+            const label = button.textContent;
+            button.textContent = "Atualizando...";
+            button.disabled = true;
+            try {
+              const response = await fetch("/api/ga4/sync", { method: "POST" });
+              const data = await response.json();
+              if (!data?.ok) {
+                console.error("GA4 sync failed", data?.error);
+              }
+            } catch (error) {
+              console.error("GA4 sync failed", error);
+            } finally {
+              button.textContent = label;
+              button.disabled = false;
+              window.dispatchEvent(
+                new CustomEvent("range-change", { detail: { range: currentRange } })
+              );
+            }
+          });
+        };
+
+        bindSidebarRefresh();
       </script>
       ${extraScript}
     </body>
@@ -660,53 +795,164 @@ const funnelContent = `
   <section class="card">
     <h3><span class="icon">🧭</span> Funil principal</h3>
     <div class="funnel-wrapper">
-      <div class="funnel-row" data-step="1">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-vsl-views">--</span> Views</div>
-          VSL <span>100% BASE</span>
-          <div class="funnel-side right"><span id="funnel-vsl-conv">--</span>% Conversão</div>
+      <div class="funnel-container" id="funnel-body">
+        <div class="funnel-segment row-0">
+          <div class="content-wrapper">
+            <div class="funnel-title">VSL</div>
+            <div class="metrics-container">
+              <span id="funnel-vsl-views">-- Views</span>
+              <span id="funnel-vsl-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="2">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-signup-views">--</span> Views</div>
-          Cadastro <span>VS VSL</span>
-          <div class="funnel-side right"><span id="funnel-signup-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-1">
+          <div class="content-wrapper">
+            <div class="funnel-title">Cadastro</div>
+            <div class="metrics-container">
+              <span id="funnel-signup-views">-- Views</span>
+              <span id="funnel-signup-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="3">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-confirmation-views">--</span> Views</div>
-          Confirmação <span>VS CADASTRO</span>
-          <div class="funnel-side right"><span id="funnel-confirmation-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-2">
+          <div class="content-wrapper">
+            <div class="funnel-title">Confirmação</div>
+            <div class="metrics-container">
+              <span id="funnel-confirmation-views">-- Views</span>
+              <span id="funnel-confirmation-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="4">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula1-views">--</span> Views</div>
-          Aula 1 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula1-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-3">
+          <div class="content-wrapper">
+            <div class="funnel-title">Aula 1</div>
+            <div class="metrics-container">
+              <span id="funnel-aula1-views">-- Views</span>
+              <span id="funnel-aula1-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="5">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula2-views">--</span> Views</div>
-          Aula 2 <span>VS AULA 1</span>
-          <div class="funnel-side right"><span id="funnel-aula2-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-4">
+          <div class="content-wrapper">
+            <div class="funnel-title">Aula 2</div>
+            <div class="metrics-container">
+              <span id="funnel-aula2-views">-- Views</span>
+              <span id="funnel-aula2-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="funnel-row" data-step="6">
-        <div class="funnel-block">
-          <div class="funnel-side left"><span id="funnel-aula3-views">--</span> Views</div>
-          Aula 3 <span>VS CONFIRMAÇÃO</span>
-          <div class="funnel-side right"><span id="funnel-aula3-conv">--</span>% Conversão</div>
+        <div class="funnel-segment row-5">
+          <div class="content-wrapper">
+            <div class="funnel-title">Aula 3</div>
+            <div class="metrics-container">
+              <span id="funnel-aula3-views">-- Views</span>
+              <span id="funnel-aula3-conv">--% Conversão</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
   <section class="card" style="margin-top: 18px;">
-    <h3><span class="icon">⏱️</span> Tempo médio por página</h3>
-    <div class="engagement-grid" id="engagement-grid"></div>
+    <h3><span class="icon">📄</span> Páginas</h3>
+    <div class="engagement-grid">
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">VSL</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-vsl-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-vsl-period-bounce">--%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-vsl-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-vsl-always-bounce">--%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Cadastro</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-signup-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-signup-period-bounce">--%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-signup-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-signup-always-bounce">--%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Confirmação</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-confirmation-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-confirmation-period-bounce">--%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-confirmation-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-confirmation-always-bounce">--%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 1</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula1-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula1-period-bounce">--%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula1-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula1-always-bounce">--%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 2</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula2-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula2-period-bounce">--%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula2-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula2-always-bounce">--%</span></p>
+        </div>
+      </div>
+      <div class="card engagement-card">
+        <div class="engagement-header">
+          <h4 class="engagement-title">Aula 3</h4>
+          <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Período</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula3-period-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula3-period-bounce">--%</span></p>
+        </div>
+        <div class="engagement-row">
+          <div class="engagement-section">Sempre</div>
+          <p class="engagement-metric">⏱️ Tempo médio: <span id="page-aula3-always-avg">-- min</span></p>
+          <p class="engagement-metric">📉 Taxa de rejeição: <span id="page-aula3-always-bounce">--%</span></p>
+        </div>
+      </div>
+    </div>
   </section>
 `;
 
@@ -720,67 +966,98 @@ const funnelScript = `
       const number = Number(value);
       return Number.isFinite(number) ? number.toFixed(1) : "--";
     };
+    const formatDuration = (value) => {
+      const seconds = Number(value);
+      if (!Number.isFinite(seconds) || seconds <= 0) return "-- min";
+      const minutes = seconds / 60;
+      return minutes.toFixed(1) + " min";
+    };
     const renderFunnel = (range) => {
-      fetch("/api/overview?range=" + range)
-        .then((response) => response.json())
-        .then((data) => {
-          if (!data?.ok) return;
-          const rows = data.funnel?.pages || [];
-          const bySlug = Object.fromEntries(rows.map((row) => [row.slug, row]));
+      const allTimeRange = "365d";
+      const fetchOverview = (targetRange) =>
+        fetch("/api/overview?range=" + targetRange).then((response) => response.json());
+
+      Promise.all([fetchOverview(range), fetchOverview(allTimeRange)]).then(
+        ([periodData, allTimeData]) => {
+          if (!periodData?.ok) return;
+          const periodRows = periodData.funnel?.pages || [];
+          const allTimeRows = allTimeData?.funnel?.pages || [];
+          const periodBySlug = Object.fromEntries(periodRows.map((row) => [row.slug, row]));
+          const allTimeBySlug = Object.fromEntries(allTimeRows.map((row) => [row.slug, row]));
           const setText = (id, value) => {
             const el = document.getElementById(id);
             if (el) el.textContent = value;
           };
 
           const percent = (num, den) => (den ? (num / den) * 100 : 0);
-          const vslViews = Number(bySlug.vsl?.views) || 0;
-          const signupViews = Number(bySlug.signup?.views) || 0;
-          const confirmationViews = Number(bySlug.confirmation?.views) || 0;
-          const aula1Views = Number(bySlug.aula1?.views) || 0;
-          const aula2Views = Number(bySlug.aula2?.views) || 0;
-          const aula3Views = Number(bySlug.aula3?.views) || 0;
+          const vslViews = Number(periodBySlug.vsl?.views) || 0;
+          const signupViews = Number(periodBySlug.signup?.views) || 0;
+          const confirmationViews = Number(periodBySlug.confirmation?.views) || 0;
+          const aula1Views = Number(periodBySlug.aula1?.views) || 0;
+          const aula2Views = Number(periodBySlug.aula2?.views) || 0;
+          const aula3Views = Number(periodBySlug.aula3?.views) || 0;
 
-          setText("funnel-vsl-views", formatNumber(vslViews));
-          setText("funnel-signup-views", formatNumber(signupViews));
-          setText("funnel-confirmation-views", formatNumber(confirmationViews));
-          setText("funnel-aula1-views", formatNumber(aula1Views));
-          setText("funnel-aula2-views", formatNumber(aula2Views));
-          setText("funnel-aula3-views", formatNumber(aula3Views));
+          setText("funnel-vsl-views", formatNumber(vslViews) + " Views");
+          setText("funnel-signup-views", formatNumber(signupViews) + " Views");
+          setText("funnel-confirmation-views", formatNumber(confirmationViews) + " Views");
+          setText("funnel-aula1-views", formatNumber(aula1Views) + " Views");
+          setText("funnel-aula2-views", formatNumber(aula2Views) + " Views");
+          setText("funnel-aula3-views", formatNumber(aula3Views) + " Views");
 
-          setText("funnel-vsl-conv", formatPercent(100));
-          setText("funnel-signup-conv", formatPercent(percent(signupViews, vslViews)));
-          setText("funnel-confirmation-conv", formatPercent(percent(confirmationViews, signupViews)));
-          setText("funnel-aula1-conv", formatPercent(percent(aula1Views, confirmationViews)));
-          setText("funnel-aula2-conv", formatPercent(percent(aula2Views, aula1Views)));
-          setText("funnel-aula3-conv", formatPercent(percent(aula3Views, confirmationViews)));
+          setText("funnel-vsl-conv", formatPercent(100) + "% Conversão");
+          setText(
+            "funnel-signup-conv",
+            formatPercent(percent(signupViews, vslViews)) + "% Conversão"
+          );
+          setText(
+            "funnel-confirmation-conv",
+            formatPercent(percent(confirmationViews, signupViews)) + "% Conversão"
+          );
+          setText(
+            "funnel-aula1-conv",
+            formatPercent(percent(aula1Views, confirmationViews)) + "% Conversão"
+          );
+          setText(
+            "funnel-aula2-conv",
+            formatPercent(percent(aula2Views, aula1Views)) + "% Conversão"
+          );
+          setText(
+            "funnel-aula3-conv",
+            formatPercent(percent(aula3Views, confirmationViews)) + "% Conversão"
+          );
 
-          const engagementGrid = document.getElementById("engagement-grid");
-          if (engagementGrid) {
-            engagementGrid.innerHTML = rows
-              .map((row) => {
-                return (
-                  '<div class="card engagement-card">' +
-                  '<h3><span class="icon">⏱️</span> ' +
-                  row.label +
-                  "</h3>" +
-                  '<p><strong>Tempo médio:</strong> ' +
-                  formatNumber(row.avg_engagement) +
-                  "s</p>" +
-                  "<details>" +
-                  "<summary>Detalhes GA</summary>" +
-                  "<p>Localização: --</p>" +
-                  "<p>Usuários online: --</p>" +
-                  "<p>Dispositivos: --</p>" +
-                  "<p>Origem de tráfego: --</p>" +
-                  "</details>" +
-                  "</div>"
-                );
-              })
-              .join("");
-          }
-        });
+          const pageMappings = [
+            { slug: "vsl", prefix: "vsl" },
+            { slug: "signup", prefix: "signup" },
+            { slug: "confirmation", prefix: "confirmation" },
+            { slug: "aula1", prefix: "aula1" },
+            { slug: "aula2", prefix: "aula2" },
+            { slug: "aula3", prefix: "aula3" },
+          ];
+
+          pageMappings.forEach(({ slug, prefix }) => {
+            const periodRow = periodBySlug[slug] || {};
+            const allTimeRow = allTimeBySlug[slug] || {};
+            setText(
+              "page-" + prefix + "-period-avg",
+              formatDuration(periodRow.avg_engagement)
+            );
+            setText(
+              "page-" + prefix + "-period-bounce",
+              formatPercent(periodRow.bounce_rate) + "%"
+            );
+            setText(
+              "page-" + prefix + "-always-avg",
+              formatDuration(allTimeRow.avg_engagement)
+            );
+            setText(
+              "page-" + prefix + "-always-bounce",
+              formatPercent(allTimeRow.bounce_rate) + "%"
+            );
+          });
+        }
+      );
     };
-
     window.addEventListener("range-change", (event) => {
       renderFunnel(event.detail.range);
     });
