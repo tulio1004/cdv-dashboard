@@ -331,13 +331,13 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         .funnel-label-text {
           fill: #ff6a00 !important;
           font-weight: 700;
-          font-size: 40px;
+          font-size: 34px;
           letter-spacing: 0.08em;
           text-transform: uppercase;
         }
         .funnel-subtext {
           fill: var(--muted);
-          font-size: 32px;
+          font-size: 28px;
           letter-spacing: 0.04em;
           text-transform: uppercase;
           font-weight: 500;
@@ -368,9 +368,59 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         }
         .engagement-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-template-columns: repeat(3, minmax(0, 1fr));
           gap: 16px;
           margin-top: 20px;
+        }
+        .engagement-grid .card {
+          position: relative;
+        }
+        .engagement-title {
+          margin: 0 0 8px;
+          font-size: 22px;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+        }
+        .engagement-section {
+          margin: 12px 0 8px;
+          color: var(--accent-strong);
+          font-weight: 700;
+          letter-spacing: 0.08em;
+        }
+        .engagement-section::before {
+          content: "• ";
+        }
+        .engagement-metric {
+          margin: 6px 0;
+          color: #fff;
+          font-weight: 600;
+        }
+        .engagement-metric span {
+          color: var(--accent-strong);
+          font-weight: 700;
+        }
+        .engagement-full {
+          position: absolute;
+          right: 16px;
+          bottom: 16px;
+          padding: 8px 16px;
+          border-radius: 999px;
+          background: linear-gradient(135deg, var(--accent), var(--accent-strong));
+          color: #fff;
+          font-size: 12px;
+          font-weight: 700;
+          text-decoration: none;
+          letter-spacing: 0.08em;
+        }
+        @media (max-width: 1100px) {
+          .engagement-grid {
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+          }
+        }
+        @media (max-width: 720px) {
+          .engagement-grid {
+            grid-template-columns: 1fr;
+          }
         }
         .engagement-card details {
           margin-top: 10px;
@@ -686,37 +736,37 @@ const funnelContent = `
         <div class="funnel-metric"><span id="funnel-aula2-views">--</span> Views</div>
         <div class="funnel-metric"><span id="funnel-aula3-views">--</span> Views</div>
       </div>
-<svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
+      <svg class="funnel-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1733.3 1558.9" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Funil principal">
         <defs>
           <linearGradient id="funnel-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#2d2d35"></stop>
-            <stop offset="50%" stop-color="#232327"></stop>
-            <stop offset="100%" stop-color="#1b1b20"></stop>
+            <stop offset="0%" stop-color="#2d2d35" />
+            <stop offset="50%" stop-color="#232327" />
+            <stop offset="100%" stop-color="#1b1b20" />
           </linearGradient>
           <linearGradient id="funnel-gradient-hover" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stop-color="#33333c"></stop>
-            <stop offset="50%" stop-color="#2b2b31"></stop>
-            <stop offset="100%" stop-color="#1f1f24"></stop>
+            <stop offset="0%" stop-color="#33333c" />
+            <stop offset="50%" stop-color="#2b2b31" />
+            <stop offset="100%" stop-color="#1f1f24" />
           </linearGradient>
         </defs>
-        <path id="AULA_3" class="funnel-segment" fill="url(#funnel-gradient)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"></path>
-        <path id="AULA_2" class="funnel-segment" fill="url(#funnel-gradient)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"></path>
-        <path id="AULA_1" class="funnel-segment" fill="url(#funnel-gradient)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"></path>
-        <path id="CONFIRMACAO" class="funnel-segment" fill="url(#funnel-gradient)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"></path>
-        <path id="CADASTRO" class="funnel-segment" fill="url(#funnel-gradient)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"></path>
-        <path id="VSL" class="funnel-segment" fill="url(#funnel-gradient)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"></path>
-        <text class="funnel-label-text" x="866.65" y="130" text-anchor="middle" dominant-baseline="middle">VSL</text>
-        <text class="funnel-subtext" x="866.65" y="200" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
-        <text class="funnel-label-text" x="866.65" y="380" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
-        <text class="funnel-subtext" x="866.65" y="450" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
-        <text class="funnel-label-text" x="866.65" y="630" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
-        <text class="funnel-subtext" x="866.65" y="700" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
-        <text class="funnel-label-text" x="866.65" y="880" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
-        <text class="funnel-subtext" x="866.65" y="950" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
-        <text class="funnel-label-text" x="866.65" y="1130" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
-        <text class="funnel-subtext" x="866.65" y="1200" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
-        <text class="funnel-label-text" x="866.65" y="1380" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
-        <text class="funnel-subtext" x="866.65" y="1450" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+        <path id="AULA_3" class="funnel-segment" fill="url(#funnel-gradient)" d="M599.3,1529.8h534.6c4.1,0,7.9-2.6,9.3-6.4l87.7-230.1c2.5-6.5-2.3-13.6-9.3-13.6H511.6c-7,0-11.8,7-9.3,13.6l87.7,230.1c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="AULA_2" class="funnel-segment" fill="url(#funnel-gradient)" d="M401.7,1029.6h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h740.4c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-929.9,0-929.9,0Z"/>
+        <path id="AULA_1" class="funnel-segment" fill="url(#funnel-gradient)" d="M306.3,779.4h0s85.4,223.9,85.4,223.9c1.5,3.9,5.2,6.4,9.3,6.4h931.1c4.1,0,7.9-2.6,9.3-6.4l85.4-223.9h0s-1120.6,0-1120.6,0Z"/>
+        <path id="CONFIRMACAO" class="funnel-segment" fill="url(#funnel-gradient)" d="M305.7,759.7h1121.9c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H225.5c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="CADASTRO" class="funnel-segment" fill="url(#funnel-gradient)" d="M210.3,509.6h1312.6c4.1,0,7.9-2.6,9.3-6.4l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H130.1c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4Z"/>
+        <path id="VSL" class="funnel-segment" fill="url(#funnel-gradient)" d="M1627.7,253l80.2-210.4c2.5-6.5-2.3-13.6-9.3-13.6H34.7c-7,0-11.8,7-9.3,13.6l80.2,210.4c1.5,3.9,5.2,6.4,9.3,6.4h1503.4c4.1,0,7.9-2.6,9.3-6.4Z"/>
+        <text class="funnel-label-text" x="866.65" y="160" text-anchor="middle" dominant-baseline="middle">VSL</text>
+        <text class="funnel-subtext" x="866.65" y="205" text-anchor="middle" dominant-baseline="middle">100% BASE</text>
+        <text class="funnel-label-text" x="866.65" y="410" text-anchor="middle" dominant-baseline="middle">Cadastro</text>
+        <text class="funnel-subtext" x="866.65" y="455" text-anchor="middle" dominant-baseline="middle">VS VSL</text>
+        <text class="funnel-label-text" x="866.65" y="660" text-anchor="middle" dominant-baseline="middle">Confirmação</text>
+        <text class="funnel-subtext" x="866.65" y="705" text-anchor="middle" dominant-baseline="middle">VS CADASTRO</text>
+        <text class="funnel-label-text" x="866.65" y="910" text-anchor="middle" dominant-baseline="middle">Aula 1</text>
+        <text class="funnel-subtext" x="866.65" y="955" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
+        <text class="funnel-label-text" x="866.65" y="1160" text-anchor="middle" dominant-baseline="middle">Aula 2</text>
+        <text class="funnel-subtext" x="866.65" y="1205" text-anchor="middle" dominant-baseline="middle">VS AULA 1</text>
+        <text class="funnel-label-text" x="866.65" y="1410" text-anchor="middle" dominant-baseline="middle">Aula 3</text>
+        <text class="funnel-subtext" x="866.65" y="1455" text-anchor="middle" dominant-baseline="middle">VS CONFIRMAÇÃO</text>
       </svg>
       <div class="funnel-metrics right">
         <div class="funnel-metric"><span id="funnel-vsl-conv">--</span>% Conversão</div>
@@ -730,7 +780,68 @@ const funnelContent = `
   </section>
   <section class="card" style="margin-top: 18px;">
     <h3><span class="icon">⏱️</span> Tempo médio por página</h3>
-    <div class="engagement-grid" id="engagement-grid"></div>
+    <div class="engagement-grid">
+      <div class="card engagement-card">
+        <h4 class="engagement-title">VSL</h4>
+        <div class="engagement-section">Period</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <div class="engagement-section">Always</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+      </div>
+      <div class="card engagement-card">
+        <h4 class="engagement-title">Cadastro</h4>
+        <div class="engagement-section">Period</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <div class="engagement-section">Always</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+      </div>
+      <div class="card engagement-card">
+        <h4 class="engagement-title">Confirmação</h4>
+        <div class="engagement-section">Period</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <div class="engagement-section">Always</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+      </div>
+      <div class="card engagement-card">
+        <h4 class="engagement-title">Aula 1</h4>
+        <div class="engagement-section">Period</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <div class="engagement-section">Always</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+      </div>
+      <div class="card engagement-card">
+        <h4 class="engagement-title">Aula 2</h4>
+        <div class="engagement-section">Period</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <div class="engagement-section">Always</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+      </div>
+      <div class="card engagement-card">
+        <h4 class="engagement-title">Aula 3</h4>
+        <div class="engagement-section">Period</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <div class="engagement-section">Always</div>
+        <p class="engagement-metric">Tempo medio na pagina: <span>x min</span></p>
+        <p class="engagement-metric">Bounce rate: <span>x%</span></p>
+        <a class="engagement-full" href="https://analytics.google.com/analytics/web/" target="_blank" rel="noreferrer">FULL</a>
+      </div>
+    </div>
   </section>
 `;
 
@@ -778,30 +889,6 @@ const funnelScript = `
           setText("funnel-aula2-conv", formatPercent(percent(aula2Views, aula1Views)));
           setText("funnel-aula3-conv", formatPercent(percent(aula3Views, confirmationViews)));
 
-          const engagementGrid = document.getElementById("engagement-grid");
-          if (engagementGrid) {
-            engagementGrid.innerHTML = rows
-              .map((row) => {
-                return (
-                  '<div class="card engagement-card">' +
-                  '<h3><span class="icon">⏱️</span> ' +
-                  row.label +
-                  "</h3>" +
-                  '<p><strong>Tempo médio:</strong> ' +
-                  formatNumber(row.avg_engagement) +
-                  "s</p>" +
-                  "<details>" +
-                  "<summary>Detalhes GA</summary>" +
-                  "<p>Localização: --</p>" +
-                  "<p>Usuários online: --</p>" +
-                  "<p>Dispositivos: --</p>" +
-                  "<p>Origem de tráfego: --</p>" +
-                  "</details>" +
-                  "</div>"
-                );
-              })
-              .join("");
-          }
         });
     };
 
