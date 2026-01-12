@@ -154,6 +154,20 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           padding: 8px 10px;
           border-radius: 10px;
         }
+        .filter-custom input[type="date"] {
+          color-scheme: dark;
+        }
+        .filter-custom input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+          opacity: 1;
+        }
+        .filter-bar input[type="date"] {
+          color-scheme: dark;
+        }
+        .filter-bar input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+          opacity: 1;
+        }
         .content {
           padding: 32px 40px;
         }
@@ -577,6 +591,159 @@ const genericTimeline = `
   </section>
 `;
 
+const funnelContent = `
+  <section class="cards">
+    <div class="card" style="grid-column: 1 / -1;">
+      <h3><span class="icon">🧭</span> Funil principal</h3>
+      <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
+        <div class="card" style="min-width: 180px; flex: 1;">
+          <h3>VSL</h3>
+          <p><strong>Views:</strong> <span id="step-vsl">--</span></p>
+          <p><strong>Conv. → Cadastro:</strong> <span id="conv-signup">--</span>%</p>
+        </div>
+        <div style="font-size: 20px;">➡️</div>
+        <div class="card" style="min-width: 180px; flex: 1;">
+          <h3>Cadastro</h3>
+          <p><strong>Views:</strong> <span id="step-signup">--</span></p>
+          <p><strong>Conv. → Confirmação:</strong> <span id="conv-confirmation">--</span>%</p>
+        </div>
+        <div style="font-size: 20px;">➡️</div>
+        <div class="card" style="min-width: 180px; flex: 1;">
+          <h3>Confirmação</h3>
+          <p><strong>Views:</strong> <span id="step-confirmation">--</span></p>
+          <p><strong>Conv. → Aula 1:</strong> <span id="conv-aula1">--</span>%</p>
+        </div>
+        <div style="font-size: 20px;">➡️</div>
+        <div class="card" style="min-width: 180px; flex: 1;">
+          <h3>Aula 1</h3>
+          <p><strong>Views:</strong> <span id="step-aula1">--</span></p>
+          <p><strong>Conv. → Aula 2:</strong> <span id="conv-aula2">--</span>%</p>
+        </div>
+        <div style="font-size: 20px;">➡️</div>
+        <div class="card" style="min-width: 180px; flex: 1;">
+          <h3>Aula 2</h3>
+          <p><strong>Views:</strong> <span id="step-aula2">--</span></p>
+          <p><strong>Conv. → Aula 3:</strong> <span id="conv-aula3">--</span>%</p>
+        </div>
+        <div style="font-size: 20px;">➡️</div>
+        <div class="card" style="min-width: 180px; flex: 1;">
+          <h3>Aula 3</h3>
+          <p><strong>Views:</strong> <span id="step-aula3">--</span></p>
+          <p><strong>Etapa final</strong></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="timeline">
+    <div class="timeline-header">
+      <h3><span class="icon">📊</span> Timeline do período</h3>
+      <span class="status-pill status-ok">Mock</span>
+    </div>
+    <div class="chart" id="timeline-chart-secondary"></div>
+    <div class="timeline-list">
+      <div class="timeline-item">🗓️ Picos e variações diárias (placeholder)</div>
+      <div class="timeline-item">📌 Tendência será exibida com dados reais</div>
+    </div>
+  </section>
+  <section class="cards" style="margin-top: 18px;">
+    <div class="card" style="grid-column: 1 / -1;">
+      <h3><span class="icon">📄</span> Páginas monitoradas</h3>
+      <p style="margin-bottom: 12px;">Views, engajamento e tendência vs período anterior.</p>
+      <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+          <thead>
+            <tr style="text-align: left; color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em;">
+              <th style="padding: 8px 6px;">Página</th>
+              <th style="padding: 8px 6px;">URL</th>
+              <th style="padding: 8px 6px;">Views</th>
+              <th style="padding: 8px 6px;">Engajamento médio</th>
+              <th style="padding: 8px 6px;">Tendência</th>
+            </tr>
+          </thead>
+          <tbody id="funnel-table">
+            <tr>
+              <td colspan="5" style="padding: 12px 6px; color: var(--muted);">Carregando...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+`;
+
+const funnelScript = `
+  <script>
+    const formatNumber = (value) => {
+      const number = Number(value);
+      return Number.isFinite(number) ? number.toLocaleString("pt-BR") : "--";
+    };
+    const formatPercent = (value) => {
+      const number = Number(value);
+      return Number.isFinite(number) ? number.toFixed(1) : "--";
+    };
+    const renderFunnel = (range) => {
+      fetch("/api/overview?range=" + range)
+        .then((response) => response.json())
+        .then((data) => {
+          if (!data?.ok) return;
+          const rows = data.funnel?.pages || [];
+          const bySlug = Object.fromEntries(rows.map((row) => [row.slug, row]));
+          const tableBody = document.getElementById("funnel-table");
+          if (tableBody) {
+            tableBody.innerHTML = rows
+              .map((row) => {
+                return (
+                  '<tr>' +
+                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border);">' +
+                  row.label +
+                  "</td>" +
+                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border); color: var(--muted);">' +
+                  row.url +
+                  "</td>" +
+                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border);">' +
+                  formatNumber(row.views) +
+                  "</td>" +
+                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border);">' +
+                  formatNumber(row.avg_engagement) +
+                  "s</td>" +
+                  '<td style="padding: 10px 6px; border-top: 1px solid var(--border); color: var(--muted);">--</td>' +
+                  "</tr>"
+                );
+              })
+              .join("");
+          }
+          const setText = (id, value) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = value;
+          };
+          setText("step-vsl", formatNumber(bySlug.vsl?.views));
+          setText("step-signup", formatNumber(bySlug.signup?.views));
+          setText("step-confirmation", formatNumber(bySlug.confirmation?.views));
+          setText("step-aula1", formatNumber(bySlug.aula1?.views));
+          setText("step-aula2", formatNumber(bySlug.aula2?.views));
+          setText("step-aula3", formatNumber(bySlug.aula3?.views));
+          const percent = (num, den) => (den ? (num / den) * 100 : 0);
+          const vslViews = Number(bySlug.vsl?.views) || 0;
+          const signupViews = Number(bySlug.signup?.views) || 0;
+          const confirmationViews = Number(bySlug.confirmation?.views) || 0;
+          const aula1Views = Number(bySlug.aula1?.views) || 0;
+          const aula2Views = Number(bySlug.aula2?.views) || 0;
+          const aula3Views = Number(bySlug.aula3?.views) || 0;
+
+          setText("conv-signup", formatPercent(percent(signupViews, vslViews)));
+          setText("conv-confirmation", formatPercent(percent(confirmationViews, signupViews)));
+          setText("conv-aula1", formatPercent(percent(aula1Views, confirmationViews)));
+          setText("conv-aula2", formatPercent(percent(aula2Views, aula1Views)));
+          setText("conv-aula3", formatPercent(percent(aula3Views, aula2Views)));
+        });
+    };
+
+    window.addEventListener("range-change", (event) => {
+      renderFunnel(event.detail.range);
+    });
+  </script>
+`;
+
 const operationsContent = `
   ${genericTimeline}
   <section class="cards" style="margin-top: 18px;">
@@ -668,7 +835,8 @@ app.get("/funnel", (req, res) => {
     renderLayout({
       title: "Funil",
       section: "funnel",
-      content: placeholderContent("📉", "Funil"),
+      content: funnelContent,
+      extraScript: funnelScript,
     })
   );
 });
