@@ -555,6 +555,20 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
         </main>
       </div>
       <script>
+        const fetchJsonWithFallback = async (primaryUrl, fallbackUrl, options) => {
+          const response = await fetch(primaryUrl, options);
+          if (response.ok) {
+            return response.json();
+          }
+          if (!fallbackUrl) {
+            throw new Error("Request failed: " + response.status);
+          }
+          const fallbackResponse = await fetch(fallbackUrl, options);
+          if (!fallbackResponse.ok) {
+            throw new Error("Request failed: " + fallbackResponse.status);
+          }
+          return fallbackResponse.json();
+        };
         const defaultRange = "1d";
         let currentRange = defaultRange;
 
@@ -656,11 +670,10 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
             button.textContent = "Atualizando...";
             button.disabled = true;
             try {
-              const response = await fetch("/api/ga4/sync", { method: "POST" });
-              const data = await response.json();
-              if (!data?.ok) {
-                console.error("GA4 sync failed", data?.error);
-              }
+          const data = await fetchJsonWithFallback("/api/ga4/sync", "/ga4/sync", { method: "POST" });
+          if (!data?.ok) {
+            console.error("GA4 sync failed", data?.error);
+          }
             } catch (error) {
               console.error("GA4 sync failed", error);
             } finally {
@@ -751,8 +764,10 @@ const overviewScript = `
     };
 
     const loadOverview = (range) => {
-      fetch(\"/api/overview?range=\" + range)
-        .then((response) => response.json())
+      fetchJsonWithFallback(
+        "/api/overview?range=" + range,
+        "/overview?range=" + range
+      )
         .then((data) => {
           if (!data?.ok) return;
           const pages = data.funnel?.pages || [];
@@ -975,7 +990,10 @@ const funnelScript = `
     const renderFunnel = (range) => {
       const allTimeRange = "365d";
       const fetchOverview = (targetRange) =>
-        fetch("/api/overview?range=" + targetRange).then((response) => response.json());
+        fetchJsonWithFallback(
+          "/api/overview?range=" + targetRange,
+          "/overview?range=" + targetRange
+        );
 
       Promise.all([fetchOverview(range), fetchOverview(allTimeRange)]).then(
         ([periodData, allTimeData]) => {
@@ -1107,8 +1125,10 @@ const receitaScript = `
       return Number.isFinite(number) ? number.toLocaleString("pt-BR") : "--";
     };
     const loadReceita = (range) => {
-      fetch(\"/api/overview?range=\" + range)
-        .then((response) => response.json())
+      fetchJsonWithFallback(
+        "/api/overview?range=" + range,
+        "/overview?range=" + range
+      )
         .then((data) => {
           if (!data?.ok) return;
           setText("receita-count", formatNumber(data.sales?.count));
