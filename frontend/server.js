@@ -208,6 +208,26 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           margin: 0 0 8px;
           font-size: 16px;
         }
+        .sidebar-refresh {
+          border: 1px solid var(--border);
+          background: #0f0f10;
+          color: var(--text);
+          padding: 8px 12px;
+          border-radius: 999px;
+          font-weight: 600;
+          font-size: 13px;
+          cursor: pointer;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+        }
+        .sidebar-refresh:hover:not(:disabled) {
+          transform: translateY(-1px);
+          border-color: var(--accent-strong);
+          box-shadow: 0 8px 16px rgba(243, 32, 21, 0.2);
+        }
+        .sidebar-refresh:disabled {
+          cursor: not-allowed;
+          opacity: 0.6;
+        }
         .card p {
           margin: 6px 0 0;
           color: var(--muted);
@@ -521,6 +541,7 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
               <input type="date" id="sidebar-end" />
               <button class="button" type="button" id="sidebar-apply">Aplicar</button>
             </div>
+            <button class="sidebar-refresh" id="ga4-refresh" type="button">🔄 Atualizar dados</button>
           </div>
         </aside>
         <main class="content">
@@ -625,6 +646,34 @@ const renderLayout = ({ title, section, content, extraScript = "" }) => `
           renderChart(range, "timeline-chart");
           renderChart(range, "timeline-chart-secondary");
         });
+
+        const bindSidebarRefresh = () => {
+          const button = document.getElementById("ga4-refresh");
+          if (!button || button.dataset.bound) return;
+          button.dataset.bound = "true";
+          button.addEventListener("click", async () => {
+            const label = button.textContent;
+            button.textContent = "Atualizando...";
+            button.disabled = true;
+            try {
+              const response = await fetch("/api/ga4/sync", { method: "POST" });
+              const data = await response.json();
+              if (!data?.ok) {
+                console.error("GA4 sync failed", data?.error);
+              }
+            } catch (error) {
+              console.error("GA4 sync failed", error);
+            } finally {
+              button.textContent = label;
+              button.disabled = false;
+              window.dispatchEvent(
+                new CustomEvent("range-change", { detail: { range: currentRange } })
+              );
+            }
+          });
+        };
+
+        bindSidebarRefresh();
       </script>
       ${extraScript}
     </body>
@@ -1009,7 +1058,6 @@ const funnelScript = `
         }
       );
     };
-
     window.addEventListener("range-change", (event) => {
       renderFunnel(event.detail.range);
     });
